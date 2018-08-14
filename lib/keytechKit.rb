@@ -2,6 +2,7 @@ require "HTTParty"
 require "keytechKit/version"
 require "keytechKit/serverinfo"
 require "keytechKit/search"
+require "keytechKit/user"
 
 class Keytech_Kit
     # set base url
@@ -10,6 +11,7 @@ class Keytech_Kit
     attr_accessor :base_url
     attr_accessor :username
     attr_accessor :password
+    attr_accessor :currentUser
 
     def initialize(baseurl, username = "" ,password = "")
       @base_url = baseurl
@@ -42,6 +44,14 @@ class Keytech_Kit
     def search(query,options = {})
       search = Search.new(@base_url, @username, @password)
       search.query(query,options)
+    end
+
+    def currentUser()
+      if @currentUser == nil
+        user = User.new(@base_url, @username, @password)
+        @currentUser = user.load(@username)
+      end
+      @currentUser
     end
 
 end

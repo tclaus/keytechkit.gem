@@ -19,7 +19,7 @@ class Serverinfo
     response = self.class.get("/serverinfo")
     if response.success?
         self.response = response
-        parse_result
+        parse_response
 
        else
          raise response.response
@@ -27,7 +27,7 @@ class Serverinfo
   end
 
 private
-  def parse_result
+  def parse_response
     result = self.response["ServerInfoResult"]
     result.each do |kv|
       puts "Key: #{kv["Key"]}, #{kv["Value"]}"

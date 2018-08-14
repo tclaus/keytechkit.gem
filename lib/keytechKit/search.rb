@@ -1,3 +1,6 @@
+require 'keytechKit/elements/element'
+require 'keytechKit/elements/searchResponseHeader'
+
 class Search
   include HTTParty
 
@@ -22,16 +25,20 @@ class Search
    parameter.merge!({ basic_auth: @auth })
 
    response = self.class.get("/search", parameter)
-   puts "Response = #{response.success?}"
    if response.success?
-       self.response = response
-
-      else
-        raise response.response
+      self.response = response
+      parse_response
+    else
+      raise response.response
    end
  end
 
  private
+
+ def parse_response
+    SearchResponseHeader.new(self.response)
+ end
+
    def permitOptions(options={})
       permittedOptions = {}
       setKeyIfPresent(options,permittedOptions,:classes)
@@ -42,8 +49,7 @@ class Search
       permittedOptions
    end
 
-
-   def setKeyIfPresent(options, permiittetOptions, key)
+   def setKeyIfPresent(options, permittetOptions, key)
        if options.key?(key)
          permittedOptions[key] = options[key]
        end
