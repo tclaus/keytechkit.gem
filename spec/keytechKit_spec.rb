@@ -23,7 +23,7 @@ RSpec.describe KeytechKit do
       keytechKit.search("demo")
   end
 
-  it "load current user" do
+  it "loads current user" do
       keytechKit =  Keytech_Kit.new("https://demo.keytech.de", username, password)
 
       expect(keytechKit.currentUser).not_to be nil
