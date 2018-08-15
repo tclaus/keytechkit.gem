@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "keytechKit/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "keytechKit"
+  spec.name          = "keytechkit"
   spec.version       = KeytechKit::VERSION
   spec.authors       = ["Thorsten Claus"]
   spec.email         = ["thorstenclaus@web.de"]
-
-  spec.summary       = "keytechKit is a ruby gem to connect to the keytech Web API"
+  spec.authors       = ["Thorsten Claus"]
+  spec.summary       = "keytechkit is a ruby gem to connect to the keytech Web API"
   spec.homepage      = "https://claus-software.de"
   spec.license       = "MIT"
 
