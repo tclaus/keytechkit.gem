@@ -37,7 +37,15 @@ Test often, let tests fail fast.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/keytechKit.
+Bug reports and pull requests are welcome on GitHub at https://github.com/tclaus/keytechKit.
+
+* Fork the project
+* run 'bundle'
+* run 'bundle exec rspec spec' for tests
+* make your changes
+* make tests
+* make a pull request
+
 
 ## License
 

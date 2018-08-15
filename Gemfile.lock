@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     keytechKit (0.1.0)
-      httparty (~> 0.1)
+      httparty (~> 0.16)
 
 GEM
   remote: https://rubygems.org/
