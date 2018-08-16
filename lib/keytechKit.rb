@@ -1,4 +1,4 @@
-require "HTTParty"
+require "httparty"
 require "keytechKit/version"
 require "keytechKit/serverinfo"
 require "keytechKit/search"
@@ -53,5 +53,16 @@ class Keytech_Kit
       end
       @currentUser
     end
+
+# user / favorites / queries
+
+# queries: stored queries, parameter queries
+
+# classes
+# layouts
+
+# element / elements / bom, structure, notes, files usw..
+
+
 
 end

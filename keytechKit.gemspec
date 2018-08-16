@@ -6,14 +6,13 @@ require "keytechKit/version"
 Gem::Specification.new do |spec|
   spec.name          = "keytechkit"
   spec.version       = KeytechKit::VERSION
-  spec.authors       = ["Thorsten Claus"]
+  spec.author        = "Thorsten Claus"
   spec.email         = ["thorstenclaus@web.de"]
-  spec.authors       = ["Thorsten Claus"]
   spec.summary       = "keytechkit is a ruby gem to connect to the keytech Web API"
   spec.homepage      = "https://claus-software.de"
   spec.license       = "MIT"
-
-  spec.required_ruby_version     = '>= 2.4.0'
+  spec.metadata      = { "source_code_uri" => "https://github.com/tclaus/keytechkit.gem" }
+  spec.required_ruby_version     = ">= 2.4.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
