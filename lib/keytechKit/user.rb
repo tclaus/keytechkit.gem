@@ -1,3 +1,5 @@
+require 'keytechKit/targetlink'
+
 class User
     include HTTParty
     attr_accessor :response
@@ -15,10 +17,12 @@ class User
       @auth = { username: username, password: password }
     end
 
-    def load(user)
+    # Returns a updated user object
+    # username = key of user
+    def load_by_name(username)
       options = {}
       options.merge!(basic_auth: @auth)
-      response = self.class.get("/user/#{user}", options)
+      response = self.class.get("/user/#{username}", options)
       if response.success?
          self.response = response
          parse_response
@@ -27,6 +31,24 @@ class User
          raise response.response
       end
     end
+
+    def favorites
+      options = {}
+      options.merge!(basic_auth: @auth)
+      response = self.class.get("/user/#{self.name}/favorites", options)
+      if response.success?
+         # array of..
+         favorites_response = response["TargetLinks"]
+         favorites_list  = Array.new
+         favorites_response.each do |favorite_response|
+           favorites_list.push Targetlink.new(favorite_response)
+         end
+         favorites_list
+       else
+         raise response.response
+      end
+    end
+
 
 private
     def parse_response

@@ -49,7 +49,7 @@ class Keytech_Kit
     def currentUser()
       if @currentUser == nil
         user = User.new(@base_url, @username, @password)
-        @currentUser = user.load(@username)
+        @currentUser = user.load_by_name(@username)
       end
       @currentUser
     end

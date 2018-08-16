@@ -25,10 +25,21 @@ RSpec.describe KeytechKit do
 
   it "loads current user" do
       keytechKit =  Keytech_Kit.new("https://demo.keytech.de", username, password)
+      currentUser = keytechKit.currentUser
+      expect(currentUser).not_to be nil
+      expect(currentUser.name).to eq(username)
+  end
 
-      expect(keytechKit.currentUser).not_to be nil
-      puts "Loaded user: #{keytechKit.currentUser.name}"
-      expect(keytechKit.currentUser.name).to eq(username)
+  it "loads current user favorites" do
+      keytechKit =  Keytech_Kit.new("https://demo.keytech.de", username, password)
+      currentUser = keytechKit.currentUser
+      expect(currentUser).not_to be nil
+      expect(currentUser.name).to eq(username)
+
+      favorites = keytechKit.currentUser.favorites
+
+      expect(favorites).not_to be nil
+
   end
 
 end
