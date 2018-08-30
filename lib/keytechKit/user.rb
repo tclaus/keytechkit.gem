@@ -32,25 +32,34 @@ class User
       end
     end
 
+    def queries
+      load_target_links("queries")
+    end
+
     def favorites
-      options = {}
-      options.merge!(basic_auth: @auth)
-      response = self.class.get("/user/#{self.name}/favorites", options)
-      if response.success?
-         # array of..
-         favorites_response = response["TargetLinks"]
-         favorites_list  = Array.new
-         favorites_response.each do |favorite_response|
-           favorites_list.push Targetlink.new(favorite_response)
-         end
-         favorites_list
-       else
-         raise response.response
-      end
+      load_target_links("favorites")
     end
 
 
 private
+
+def load_target_links(linkType)
+
+  options = {}
+  options.merge!(basic_auth: @auth)
+  response = self.class.get("/user/#{self.name}/#{linkType}", options)
+  if response.success?
+     targetLinks_response = response["TargetLinks"]
+     targetLinks  = Array.new
+     targetLinks_response.each do |favorite_response|
+       targetLinks.push Targetlink.new(favorite_response)
+     end
+     targetLinks
+   else
+     raise response.response
+  end
+end
+
     def parse_response
       # Only one user should be returns every time
       userData = self.response["MembersList"][0]
