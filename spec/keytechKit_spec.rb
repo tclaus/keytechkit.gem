@@ -1,3 +1,4 @@
+module KeytechKit
 RSpec.describe KeytechKit do
 
   username = "jgrant"
@@ -22,5 +23,5 @@ RSpec.describe KeytechKit do
       keytechKit =  Keytech_Kit.new("https://demo.keytech.de", username, password)
       keytechKit.search("demo")
   end
-
+  end
 end

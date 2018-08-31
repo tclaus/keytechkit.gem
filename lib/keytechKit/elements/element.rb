@@ -1,4 +1,6 @@
-class Element
+
+module KeytechKit
+  class Element
 
   attr_accessor :key #unique key of this element
   attr_accessor :name
@@ -9,7 +11,7 @@ class Element
   attr_accessor :createdByLong
   attr_accessor :createdBy
   attr_accessor :createdAt
-  
+
   attr_accessor :changedAt
   attr_accessor :changedByLong
   attr_accessor :changedBy
@@ -44,5 +46,5 @@ class Element
     self.hasVersions = elementData["HasVersions"]
   end
 
-
+  end
 end

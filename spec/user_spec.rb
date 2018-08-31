@@ -1,4 +1,5 @@
-RSpec.describe KeytechKit do
+module KeytechKit
+  RSpec.describe KeytechKit do
 
   username = "jgrant"
   password = ""
@@ -32,4 +33,5 @@ RSpec.describe KeytechKit do
       expect(favorites).not_to be nil
   end
 
+end
 end

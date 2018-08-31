@@ -1,6 +1,6 @@
 require 'keytechKit/targetlink'
-
-class User
+module KeytechKit
+  class User
     include HTTParty
     attr_accessor :response
 
@@ -40,25 +40,23 @@ class User
       load_target_links("favorites")
     end
 
+    private
 
-private
-
-def load_target_links(linkType)
-
-  options = {}
-  options.merge!(basic_auth: @auth)
-  response = self.class.get("/user/#{self.name}/#{linkType}", options)
-  if response.success?
-     targetLinks_response = response["TargetLinks"]
-     targetLinks  = Array.new
-     targetLinks_response.each do |favorite_response|
-       targetLinks.push Targetlink.new(favorite_response)
-     end
-     targetLinks
-   else
-     raise response.response
-  end
-end
+    def load_target_links(linkType)
+      options = {}
+      options.merge!(basic_auth: @auth)
+      response = self.class.get("/user/#{self.name}/#{linkType}", options)
+      if response.success?
+         targetLinks_response = response["TargetLinks"]
+         targetLinks  = Array.new
+         targetLinks_response.each do |favorite_response|
+           targetLinks.push Targetlink.new(favorite_response)
+         end
+         targetLinks
+       else
+         raise response.response
+      end
+    end
 
     def parse_response
       # Only one user should be returns every time
@@ -72,5 +70,5 @@ end
       self.longname = userData["Longname"]
       self.mail = userData["MailAddress"]
     end
-
+  end
 end
