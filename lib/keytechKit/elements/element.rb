@@ -1,7 +1,7 @@
 
 module KeytechKit
   class Element
-
+      
   attr_accessor :key #unique key of this element
   attr_accessor :name
 

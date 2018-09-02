@@ -3,6 +3,7 @@ require "keytechKit/version"
 require "keytechKit/serverinfo"
 require "keytechKit/search"
 require "keytechKit/user"
+require "keytechKit/elements/elements"
 
 module KeytechKit
   class Keytech_Kit
@@ -12,7 +13,9 @@ module KeytechKit
       attr_accessor :base_url
       attr_accessor :username
       attr_accessor :password
+
       attr_accessor :currentUser
+      attr_accessor :elements
 
       def initialize(baseurl, username = "" ,password = "")
         @base_url = baseurl
@@ -53,6 +56,14 @@ module KeytechKit
           @currentUser = user.load_by_name(@username)
         end
         @currentUser
+      end
+
+      # Returns a elements class
+      def elements()
+        if @elements == nil
+          @elements = Elements.new(@base_url, @username, @password)
+        end
+        @elements
       end
 
   # user / favorites / queries

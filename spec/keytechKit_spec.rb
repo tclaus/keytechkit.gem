@@ -1,27 +1,28 @@
 module KeytechKit
 RSpec.describe KeytechKit do
 
-  username = "jgrant"
-  password = ""
-
-
   it "has a version number" do
     expect(KeytechKit::VERSION).not_to be nil
   end
 
   it "loads serverinfo" do
-    keytechKit =  Keytech_Kit.new("https://demo.keytech.de")
+    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL)
     serverinfo = keytechKit.serverinfo
     expect(serverinfo).not_to be nil
 
-    puts serverinfo.database_version
+    expect(serverinfo.database_version).to_not be nil
+    expect(serverinfo.api_version).to_not be nil
+
+    puts "API Version is #{serverinfo.api_version}"
+    puts "Database Version is #{serverinfo.database_version}"
+
 
   end
 
   it "executes a fulltext query" do
-      puts "loads a fulltext search"
-      keytechKit =  Keytech_Kit.new("https://demo.keytech.de", username, password)
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       keytechKit.search("demo")
+
   end
   end
 end
