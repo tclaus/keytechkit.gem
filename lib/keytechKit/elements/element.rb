@@ -1,7 +1,7 @@
 
 module KeytechKit
   class Element
-      
+
   attr_accessor :key #unique key of this element
   attr_accessor :name
 
@@ -44,6 +44,14 @@ module KeytechKit
 
     self.thumbnailHint = elementData["ThumbnailHint"]
     self.hasVersions = elementData["HasVersions"]
+  end
+
+  def listerlayout
+  end
+  def editorlayout
+  end
+  # AKA Explorer Layout
+  def weblayout
   end
 
   end

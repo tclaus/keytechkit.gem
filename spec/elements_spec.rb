@@ -13,7 +13,6 @@ module KeytechKit
         expect(elements).not_to be nil
 
         steamroller = elements.find(KeytechKit::DEMO_ARTICLE)
-        puts "steamroller: #{steamroller}"
         expect(steamroller).not_to be nil
     end
 
