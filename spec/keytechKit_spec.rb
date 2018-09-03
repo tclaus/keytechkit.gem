@@ -16,13 +16,11 @@ RSpec.describe KeytechKit do
     puts "API Version is #{serverinfo.api_version}"
     puts "Database Version is #{serverinfo.database_version}"
 
-
   end
 
   it "executes a fulltext query" do
       keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       keytechKit.search("demo")
-
   end
   end
 end

@@ -1,9 +1,7 @@
-require 'keytechKit/elements/element'
-require 'keytechKit/elements/searchResponseHeader'
-
+require 'keytechKit/classes/classdefinition'
 
 module KeytechKit
-  class Elements
+  class Classes
     include HTTParty
 
     def initialize(base_url, username, password)
@@ -11,24 +9,20 @@ module KeytechKit
       @auth = { username: username, password: password }
     end
 
-    def find(id, options = {})
+    def classDefinition(classKey, options = {})
+      # Returns a classclasses
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
 
-      response = self.class.get("/elements/#{id}", parameter)
+      response = self.class.get("/classes/#{classKey}", parameter)
 
       if response.success?
-        searchResponseHeader = SearchResponseHeader.new(response)
-        searchResponseHeader.elementList.first
+        # create a class
+        ClassDefinition.new(response)
        else
          raise response.response
       end
     end
-
-    def save(element)
-      #TODO: Save element
-    end
-
 
   end
 end

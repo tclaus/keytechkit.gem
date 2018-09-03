@@ -4,6 +4,9 @@ require "keytechKit/serverinfo"
 require "keytechKit/search"
 require "keytechKit/user"
 require "keytechKit/elements/elements"
+require "keytechKit/classes/classes"
+require "keytechKit/classes/layouts"
+require "keytechKit/classes/layout/layout"
 
 module KeytechKit
   class Keytech_Kit
@@ -16,6 +19,8 @@ module KeytechKit
 
       attr_accessor :currentUser
       attr_accessor :elements
+      attr_accessor :classes
+      attr_accessor :layouts
 
       def initialize(baseurl, username = "" ,password = "")
         @base_url = baseurl
@@ -65,6 +70,21 @@ module KeytechKit
         end
         @elements
       end
+
+      def classes()
+        if @classes == nil
+          @classes = Classes.new(@base_url, @username, @password)
+        end
+        @classes
+      end
+
+      def layouts()
+        if @layouts == nil
+          @layouts = Layouts.new(@base_url, @username, @password)
+        end
+        @layouts
+      end
+
 
   # user / favorites / queries
 

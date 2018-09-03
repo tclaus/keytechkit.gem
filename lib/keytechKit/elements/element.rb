@@ -46,13 +46,5 @@ module KeytechKit
     self.hasVersions = elementData["HasVersions"]
   end
 
-  def listerlayout
-  end
-  def editorlayout
-  end
-  # AKA Explorer Layout
-  def weblayout
-  end
-
   end
 end
