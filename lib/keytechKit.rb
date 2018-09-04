@@ -9,6 +9,7 @@ require "keytechKit/classes/layouts"
 require "keytechKit/classes/layout/layout"
 
 module KeytechKit
+
   class Keytech_Kit
       # set base url
       # setusername / Password
@@ -66,7 +67,7 @@ module KeytechKit
       # Returns a elements class
       def elements()
         if @elements == nil
-          @elements = Elements.new(@base_url, @username, @password)
+          @elements = Elements.new(self, @base_url, @username, @password)
         end
         @elements
       end
