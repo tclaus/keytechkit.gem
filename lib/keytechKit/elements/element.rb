@@ -23,10 +23,8 @@ module KeytechKit
   attr_accessor :status
   attr_accessor :version
   attr_accessor :description
-  attr_accessor :keytechkit
 
-  def initialize(keytechkit, elementData)
-    @keytechkit = keytechkit
+  def initialize(elementData)
 
     self.key = elementData["Key"]
     self.name = elementData["Name"]
@@ -50,7 +48,7 @@ module KeytechKit
     self.hasVersions = elementData["HasVersions"]
   end
 
-  
+
   private
    def set_key_value_list(kvData)
      self.keyValueList =  Hash.new

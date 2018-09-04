@@ -26,33 +26,43 @@ module KeytechKit
       response = self.class.get("/elements/#{elementKey}", parameter)
 
       if response.success?
-        searchResponseHeader = SearchResponseHeader.new(@keytechkit, response)
+        searchResponseHeader = SearchResponseHeader.new(response)
         searchResponseHeader.elementList.first
        else
          raise response.response
       end
     end
 
+
+    # Loads the structure
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    def structure(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/structure", parameter)
+      searchResponseHeader = SearchResponseHeader.new(response)
+
+      return searchResponseHeader.elementList
+    end
+
     # Loads the preview image. This is always a smaller, not for direct use image file
     def preview(elementKey)
-      # Global userinfo?
-      result = HTTParty.get("#{keytechkit.base_url}/elements/#{elementKey}/preview",
-                                          :basic_auth => {
-                                                :username => keytechkit.username,
-                                                :password => keytechkit.password})
 
-      return result
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/preview", parameter)
+
+      return response
     end
 
     # Loads a small thumbnail
     def thumbnail(elementKey)
-      # Global userinfo?
-      result = HTTParty.get("#{keytechkit.base_url}/elements/#{elementKey}/thumbnail",
-                                          :basic_auth => {
-                                                :username => keytechkit.username,
-                                                :password => keytechkit.password})
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/thumbnail", parameter)
 
-      return result
+      return response
     end
 
     def save(element)

@@ -8,12 +8,9 @@ module KeytechKit
     attr_accessor :pageSize
     attr_accessor :totalRecords
     attr_accessor :elementList # list of elements
-    attr_accessor :keytechkit
 
-    def initialize(keytechkit, response)
-      @keytechkit = keytechkit
+    def initialize(response)
       parseResponse(response)
-
     end
 
     private
@@ -28,7 +25,7 @@ module KeytechKit
     def parseElementList(elementResults)
       elements  = Array.new
       elementResults.each do |elementData|
-        element = Element.new(@keytechkit, elementData)
+        element = Element.new(elementData)
         elements.push element
       end
       @elementList = elements
