@@ -27,7 +27,8 @@ module KeytechKit
   def initialize(elementData)
     self.key = elementData["Key"]
     self.name = elementData["Name"]
-    self.keyValueList = elementData["KeyValueList"]
+    set_key_value_list(elementData["KeyValueList"])
+
     self.displayname = elementData["DisplayName"]
     self.classDisplayName = elementData["ClassDisplayName"]
     self.version = elementData["Version"]
@@ -45,6 +46,15 @@ module KeytechKit
     self.thumbnailHint = elementData["ThumbnailHint"]
     self.hasVersions = elementData["HasVersions"]
   end
+
+  private
+   def set_key_value_list(kvData)
+     self.keyValueList =  Hash.new
+     kvData.each do |kvPair|
+        self.keyValueList[kvPair["Key"].to_s] = kvPair["Value"]
+     end
+
+   end
 
   end
 end

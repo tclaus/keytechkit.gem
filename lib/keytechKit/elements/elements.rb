@@ -11,6 +11,11 @@ module KeytechKit
       @auth = { username: username, password: password }
     end
 
+    ##
+    # Find an existing element with +elementkey+ in form of classkey:<nummeric>
+    # e.g.: MISC_FILE:1234
+    # +options+ is one of attributes=ALL|NONE|EDITOR
+    
     def find(id, options = {})
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
