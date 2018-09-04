@@ -52,7 +52,17 @@ module KeytechKit
         structure = elements.structure(DEMO_ARTICLE)
         expect(structure).not_to be nil
         expect(structure.length).to be > 0
-        puts " has #{structure.length} childs"
+    end
+
+    it "loads the steamroller parents" do
+        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        elements = keytechKit.elements
+        expect(elements).not_to be nil
+        structure = elements.structure(DEMO_ARTICLE)
+        expect(structure).not_to be nil
+        expect(structure.length).to be > 0
+        parents = elements.whereused(structure.first.key)
+        expect(parents.length).to be == 1
     end
 
   end

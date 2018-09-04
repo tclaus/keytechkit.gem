@@ -48,6 +48,20 @@ module KeytechKit
       return searchResponseHeader.elementList
     end
 
+    # Loads the parent elements
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    def whereused(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/whereused", parameter)
+      searchResponseHeader = SearchResponseHeader.new(response)
+
+      return searchResponseHeader.elementList
+    end
+
     # Loads the preview image. This is always a smaller, not for direct use image file
     def preview(elementKey)
 
