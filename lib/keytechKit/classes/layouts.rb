@@ -23,7 +23,38 @@ module KeytechKit
         load_layout(classkey, {"layoutType": "ExplorerLayout"})
     end
 
+    def lister_layout(classkey)
+        load_lister_layout(classkey)
+    end
+
+    def global_lister_layout
+      # type, displaytext, name, status, created_at, created_by
+      Layout.new('DesignerControls' => [
+                   { 'AttributeName' => 'classname',
+                     'Displayname' => 'Klasse' },
+                   { 'AttributeName' => 'displayname',
+                     'Displayname' => 'Bezeichnung' },
+                   { 'AttributeName' => 'status',
+                     'Displayname' => 'Status' },
+                   { 'AttributeName' => 'created_by',
+                     'Displayname' => 'Angelegt von' },
+                   { 'AttributeName' => 'created_at',
+                     'Displayname' => 'Angelegt am' }
+                 ])
+    end
+
     private
+
+    def load_lister_layout(classKey)
+      parameter = { basic_auth: @auth }
+
+      response = self.class.get("/classes/#{classKey}/listerlayout", parameter)
+      if response.success?
+         Layout.new(response)
+       else
+         raise response.response
+      end
+    end
 
       def load_layout(classKey, options = {})
         parameter = {query: options}

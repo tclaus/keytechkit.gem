@@ -40,8 +40,6 @@ module KeytechKit
     def structure(elementKey, options = {})
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
-
-      parameter = { basic_auth: @auth }
       response = self.class.get("/elements/#{elementKey}/structure", parameter)
       searchResponseHeader = SearchResponseHeader.new(response)
 
@@ -55,7 +53,6 @@ module KeytechKit
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
 
-      parameter = { basic_auth: @auth }
       response = self.class.get("/elements/#{elementKey}/whereused", parameter)
       searchResponseHeader = SearchResponseHeader.new(response)
 
