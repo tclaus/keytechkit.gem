@@ -8,6 +8,7 @@ require "keytechKit/elements/notes/notes"
 require "keytechKit/classes/classes"
 require "keytechKit/classes/layouts"
 require "keytechKit/classes/layout/layout"
+require "keytechKit/elements/files/files"
 
 module KeytechKit
 
@@ -24,6 +25,7 @@ module KeytechKit
       attr_accessor :notes
       attr_accessor :classes
       attr_accessor :layouts
+      attr_accessor :files
 
       def initialize(baseurl, username = "" ,password = "")
         @base_url = baseurl
@@ -92,6 +94,13 @@ module KeytechKit
           @layouts = Layouts.new(@base_url, @username, @password)
         end
         @layouts
+      end
+
+      def files()
+        if @files == nil
+          @files = Files.new(@base_url, @username, @password)
+        end
+        @files
       end
 
 
