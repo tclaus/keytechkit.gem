@@ -19,7 +19,7 @@ module KeytechKit
     # e.g.: MISC_FILE:1234
     # +options+ is one of attributes=ALL|NONE|EDITOR
 
-    def find(elementKey, options = {})
+    def load(elementKey, options = {})
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
 
@@ -58,6 +58,16 @@ module KeytechKit
 
       return searchResponseHeader.elementList
     end
+
+    def notes(elementkey)
+      parameter = { basic_auth: @auth }
+
+      response = self.class.get("/elements/#{elementKey}/notes", parameter)
+      searchResponseHeader = SearchResponseHeader.new(response)
+
+      return searchResponseHeader.elementList
+    end
+
 
     # Loads the preview image. This is always a smaller, not for direct use image file
     def preview(elementKey)

@@ -9,7 +9,7 @@ module KeytechKit
       @auth = { username: username, password: password }
     end
 
-    def classDefinition(classKey, options = {})
+    def load(classKey, options = {})
       # Returns a classclasses
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })

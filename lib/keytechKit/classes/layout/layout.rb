@@ -6,7 +6,6 @@ module KeytechKit
     attr_accessor :controls
 
     def initialize(data)
-      puts "data= #{data}"
       parseControls(data["DesignerControls"])
     end
 

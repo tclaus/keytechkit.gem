@@ -15,18 +15,18 @@ module KeytechKit
       # Possible filetypes
       # Product_wf, misc_file, default_mi
       classkey = "PRODUCT_WF"
-      productDefinition = classes.classDefinition(classkey)
+      productDefinition = classes.load(classkey)
       expect(productDefinition).not_to be nil
       expect(productDefinition.classKey).to eq(classkey)
       expect(productDefinition.availableSubareas).not_to be nil
 
       classkey = "MISC_FILE"
-      productDefinition = classes.classDefinition(classkey)
+      productDefinition = classes.load(classkey)
       expect(productDefinition).not_to be nil
       expect(productDefinition.classKey).to eq(classkey)
 
       classkey = "DEFAULT_MI"
-      productDefinition = classes.classDefinition(classkey)
+      productDefinition = classes.load(classkey)
       expect(productDefinition).not_to be nil
       expect(productDefinition.classKey).to eq(classkey)
 

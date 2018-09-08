@@ -19,7 +19,7 @@ module KeytechKit
 
     # Returns a updated user object
     # username = key of user
-    def load_by_name(username)
+    def load(username)
       options = {}
       options.merge!(basic_auth: @auth)
       response = self.class.get("/user/#{username}", options)

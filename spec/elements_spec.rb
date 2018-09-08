@@ -12,7 +12,7 @@ module KeytechKit
         elements = keytechKit.elements
         expect(elements).not_to be nil
 
-        steamroller = elements.find(KeytechKit::DEMO_ARTICLE)
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE)
         expect(steamroller).not_to be nil
     end
 
@@ -21,7 +21,7 @@ module KeytechKit
         elements = keytechKit.elements
         expect(elements).not_to be nil
 
-        steamroller = elements.find(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
         expect(steamroller).not_to be nil
         expect(steamroller.keyValueList).not_to be nil
         expect(steamroller.keyValueList.length).to be > 0
@@ -31,7 +31,7 @@ module KeytechKit
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
-        steamroller = elements.find(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
         expect(steamroller).not_to be nil
         expect(elements.preview(steamroller.key)).not_to be nil
     end
@@ -40,7 +40,7 @@ module KeytechKit
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
-        steamroller = elements.find(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
         expect(steamroller).not_to be nil
         expect(elements.thumbnail(steamroller.key)).not_to be nil
     end

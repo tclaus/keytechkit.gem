@@ -4,6 +4,7 @@ require "keytechKit/serverinfo"
 require "keytechKit/search"
 require "keytechKit/user"
 require "keytechKit/elements/elements"
+require "keytechKit/elements/notes/notes"
 require "keytechKit/classes/classes"
 require "keytechKit/classes/layouts"
 require "keytechKit/classes/layout/layout"
@@ -20,6 +21,7 @@ module KeytechKit
 
       attr_accessor :currentUser
       attr_accessor :elements
+      attr_accessor :notes
       attr_accessor :classes
       attr_accessor :layouts
 
@@ -59,17 +61,23 @@ module KeytechKit
       def currentUser()
         if @currentUser == nil
           user = User.new(@base_url, @username, @password)
-          @currentUser = user.load_by_name(@username)
+          @currentUser = user.load(@username)
         end
         @currentUser
       end
 
-      # Returns a elements class
       def elements()
         if @elements == nil
           @elements = Elements.new(self, @base_url, @username, @password)
         end
         @elements
+      end
+
+      def notes()
+        if @notes == nil
+          @notes = Notes.new(@base_url, @username, @password)
+        end
+        @notes
       end
 
       def classes()
