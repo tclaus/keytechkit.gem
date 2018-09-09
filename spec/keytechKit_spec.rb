@@ -1,26 +1,22 @@
 module KeytechKit
-RSpec.describe KeytechKit do
+  RSpec.describe KeytechKit do
 
-  it "has a version number" do
-    expect(KeytechKit::VERSION).not_to be nil
-  end
+    it "has a version number" do
+      expect(KeytechKit::VERSION).not_to be nil
+    end
 
-  it "loads serverinfo" do
-    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL)
-    serverinfo = keytechKit.serverinfo
-    expect(serverinfo).not_to be nil
+    it "loads serverinfo" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL)
+      serverinfo = keytechKit.serverinfo
+      expect(serverinfo).not_to be nil
 
-    expect(serverinfo.database_version).to_not be nil
-    expect(serverinfo.api_version).to_not be nil
+      expect(serverinfo.database_version).to_not be nil
+      expect(serverinfo.api_version).to_not be nil
 
-    puts "API Version is #{serverinfo.api_version}"
-    puts "Database Version is #{serverinfo.database_version}"
+      puts "API Version is #{serverinfo.api_version}"
+      puts "Database Version is #{serverinfo.database_version}"
 
-  end
+    end
 
-  it "executes a fulltext query" do
-      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
-      keytechKit.search("demo")
-  end
   end
 end

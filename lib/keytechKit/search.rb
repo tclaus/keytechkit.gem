@@ -20,11 +20,9 @@ module KeytechKit
     #:classes = "DEFAULT_DO","DEFAULT_FD", "DEFAULT_MI", "DEFAULT_MAIL","DEFAULT_TASK"
 
      def query(query,options = {})
-       options = permitOptions(options)
        options[:q] = query
        parameter = {query: options}
        parameter.merge!({ basic_auth: @auth })
-
        response = self.class.get("/search", parameter)
        if response.success?
           self.response = response
@@ -38,22 +36,6 @@ module KeytechKit
 
      def parse_response
         SearchResponseHeader.new(self.response)
-     end
-
-     def permitOptions(options={})
-        permittedOptions = {}
-        setKeyIfPresent(options,permittedOptions,:classes)
-        setKeyIfPresent(options,permittedOptions,:attributes)
-        setKeyIfPresent(options,permittedOptions,:size)
-        setKeyIfPresent(options,permittedOptions,:page)
-        setKeyIfPresent(options,permittedOptions,:reload)
-        permittedOptions
-     end
-
-     def setKeyIfPresent(options, permittetOptions, key)
-         if options.key?(key)
-           permittedOptions[key] = options[key]
-         end
      end
 
   end

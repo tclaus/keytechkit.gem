@@ -1,5 +1,5 @@
 require 'keytechKit/elements/element'
-
+require 'keytechKit/elements/groupBy'
 module KeytechKit
   # Represents the header from search results
   class SearchResponseHeader
@@ -8,6 +8,7 @@ module KeytechKit
     attr_accessor :pageSize
     attr_accessor :totalRecords
     attr_accessor :elementList # list of elements
+    attr_accessor :groupBy
 
     def initialize(response)
       parseResponse(response)
@@ -20,6 +21,17 @@ module KeytechKit
       @pageSize = response["PageSize"]
       @totalRecords = response["Totalrecords"]
       @elementList = parseElementList(response["ElementList"])
+      @groupBy = parseGroupBy(response["GroupBy"])
+    end
+
+    def parseGroupBy(groupByResults)
+      if groupByResults
+        groupByArray = Array.new
+        groupByResults.each do |groupBy|
+          groupByArray.push GroupBy.new(groupBy)
+        end
+        groupByArray.first
+      end
     end
 
     def parseElementList(elementResults)

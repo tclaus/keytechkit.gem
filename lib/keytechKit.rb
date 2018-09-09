@@ -26,6 +26,7 @@ module KeytechKit
       attr_accessor :classes
       attr_accessor :layouts
       attr_accessor :files
+      attr_accessor :search
 
       def initialize(baseurl, username = "" ,password = "")
         @base_url = baseurl
@@ -41,6 +42,7 @@ module KeytechKit
       def set_username(username)
         @username = username
       end
+
       def set_userpassword(password)
         @password = password
       end
@@ -48,16 +50,6 @@ module KeytechKit
     # Functions here
       def serverinfo
         Serverinfo.load(base_url)
-      end
-
-      # Search
-      #   - elements
-      #   - elements key value list
-      # search(q=,classes=,  attributes= reload=, size=, page=)
-      # search(ByQuery=, attributes= reload=, size=, page=)
-      def search(query,options = {})
-        search = Search.new(@base_url, @username, @password)
-        search.query(query,options)
       end
 
       def currentUser()
@@ -103,15 +95,12 @@ module KeytechKit
         @files
       end
 
-
-  # user / favorites / queries
-
-  # queries: stored queries, parameter queries
-
-  # classes
-  # layouts
-
-  # element / elements / bom, structure, notes, files usw..
+      def search()
+        if @search == nil
+          @search = Search.new(@base_url, @username, @password)
+        end
+        @search
+      end
 
   end
 
