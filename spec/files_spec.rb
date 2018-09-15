@@ -39,6 +39,27 @@ module KeytechKit
         # The masterfileID can be downloaded
     end
 
+    it "element has no masterfile" do
+        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        files = keytechKit.files
+        expect(files).not_to be nil
+
+        hasMasterfile = files.hasMasterfile("default_mi:123")
+
+        expect(hasMasterfile).to be false
+    end
+
+    it "loads the masterfile fileinfos" do
+        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        files = keytechKit.files
+        expect(files).not_to be nil
+
+        masterfileInfo = files.masterfileInfo(ElementWithFiles)
+        puts "FileInfo: #{masterfileInfo}"
+        expect(masterfileInfo).not_to be nil
+        # The masterfileID can be downloaded
+    end
+
     it "loads the masterfile filename" do
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files

@@ -8,6 +8,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.3)
+    filesize (0.2.0)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
     multi_xml (0.6.0)
@@ -31,6 +32,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
+  filesize (~> 0.2.0)
   keytechkit!
   rake (~> 10.0)
   rspec (~> 3.0)

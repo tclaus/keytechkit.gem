@@ -1,3 +1,4 @@
+require 'keytechKit/tools'
 require 'keytechKit/elements/files/file'
 
 module KeytechKit
@@ -9,27 +10,46 @@ module KeytechKit
       @auth = { username: username, password: password }
     end
 
+    # Returns true or false if a masterfile exist
     def hasMasterfile(elementKey)
-      fileList = load(elementKey)
-      fileList.each do |file|
-        if file.fileStorageType.downcase == "master"
-          return true
+      if Tools.classType(elementKey) == "DO" # Only DO Types can have a file
+        fileList = load(elementKey)
+        fileList.each do |file|
+          if file.fileStorageType.downcase == "master"
+            return true
+          end
         end
       end
       return false
     end
 
+    # Returns information about masterfile
+    def masterfileInfo(elementKey)
+      if Tools.classType(elementKey) == "DO" # Only DO Types can have a file
+        fileList = load(elementKey)
+        fileList.each do |file|
+          if file.fileStorageType.downcase == "master"
+            return file
+          end
+        end
+      end
+      return nil
+    end
+
+
+    # Returns the name of a masterfile if present
     def masterfilename(elementKey)
       fileList = load(elementKey)
       fileList.each do |file|
         if file.fileStorageType.downcase! == "master"
-          return file.filename
+          return file.fileName
         end
       end
-      return "file"
+      return nil
     end
 
     # Loads the filelist
+    # Returns a full list of file data
     def load(elementKey)
       parameter = { basic_auth: @auth }
 
