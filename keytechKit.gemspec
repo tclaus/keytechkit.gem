@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "keytechKit/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "KeytechKit"
+  spec.name          = "keytechKit"
   spec.version       = KeytechKit::VERSION
   spec.author        = "Thorsten Claus"
   spec.email         = ["thorstenclaus@web.de"]
