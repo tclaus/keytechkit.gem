@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    KeytechKit (0.3.2)
+    keytechkit (0.3.3)
       httparty (~> 0.16)
 
 GEM
@@ -30,8 +30,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  KeytechKit!
   bundler (~> 1.16)
+  keytechkit!
   rake (~> 10.0)
   rspec (~> 3.0)
 

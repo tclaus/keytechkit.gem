@@ -27,6 +27,12 @@ module KeytechKit
         load_lister_layout(classkey)
     end
 
+    # Loads the bom lister layout
+    def bom_lister_layout
+      # /bom/listerlayout
+      load_lister_layout("bom")
+    end
+
     def global_lister_layout
       # type, displaytext, name, status, created_at, created_by
       Layout.new('DesignerControls' => [

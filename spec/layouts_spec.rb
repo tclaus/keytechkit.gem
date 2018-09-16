@@ -58,6 +58,16 @@ module KeytechKit
       expect(layout.controls).not_to be nil
     end
 
+    it "loads bom lister layout" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      layouts = keytechKit.layouts
+      expect(layouts).not_to be nil
+
+      layout = layouts.bom_lister_layout
+      expect(layout).not_to be nil
+      expect(layout.controls).not_to be nil
+    end
+
     it "loads global lister layout" do
       keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       layouts = keytechKit.layouts

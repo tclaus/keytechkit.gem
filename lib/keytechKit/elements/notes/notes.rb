@@ -13,7 +13,6 @@ module KeytechKit
       parameter = { basic_auth: @auth }
 
       response = self.class.get("/elements/#{elementKey}/notes", parameter)
-      puts "notes response: #{response}"
       if response.success?
         parse_notes(response["NotesList"])
        else

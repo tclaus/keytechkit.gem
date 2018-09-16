@@ -1,6 +1,6 @@
 require 'keytechKit/elements/element'
 require 'keytechKit/elements/searchResponseHeader'
-
+require 'keytechKit/elements/bom/billOfMaterial'
 
 module KeytechKit
   class Elements
@@ -57,6 +57,18 @@ module KeytechKit
       searchResponseHeader = SearchResponseHeader.new(response)
 
       return searchResponseHeader.elementList
+    end
+
+    # Loads the bill of meterial on articles
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    def billOfMaterial(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+
+      response = self.class.get("/elements/#{elementKey}/bom", parameter)
+      billOfMaterial = BillOfMaterial.new(response)
+      return billOfMaterial.bomElementList
     end
 
     def notes(elementkey)
