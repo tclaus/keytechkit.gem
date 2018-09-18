@@ -1,13 +1,11 @@
 module KeytechKit
   RSpec.describe KeytechKit do
 
-
     it "loads the search object" do
       keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL)
       search = keytechKit.search
       expect(search).not_to be nil
     end
-
 
     it "executes a fulltext query" do
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)

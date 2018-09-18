@@ -9,7 +9,7 @@ module KeytechKit
     attr_accessor :isSuperuser
     attr_accessor :name
     attr_accessor :languageID
-    attr_accessor :longname
+    attr_accessor :longName
     attr_accessor :mail
 
     def initialize(base_url, username, password)
@@ -32,8 +32,8 @@ module KeytechKit
       end
     end
 
-    def queries
-      load_target_links("queries")
+    def queries(options = {})
+      load_target_links("queries", options)
     end
 
     def favorites
@@ -42,15 +42,15 @@ module KeytechKit
 
     private
 
-    def load_target_links(linkType)
-      options = {}
-      options.merge!(basic_auth: @auth)
-      response = self.class.get("/user/#{self.name}/#{linkType}", options)
+    def load_target_links(linkType, options = {})
+      parameter = {query: options}
+      parameter.merge!(basic_auth: @auth)
+      response = self.class.get("/user/#{self.name}/#{linkType}", parameter)
       if response.success?
          targetLinks_response = response["TargetLinks"]
          targetLinks  = Array.new
-         targetLinks_response.each do |favorite_response|
-           targetLinks.push Targetlink.new(favorite_response)
+         targetLinks_response.each do |link_response|
+           targetLinks.push Targetlink.new(link_response)
          end
          targetLinks
        else
@@ -67,7 +67,7 @@ module KeytechKit
       self.isSuperuser = userData["IsSuperuser"]
       self.name = userData["KeyName"]
       self.languageID = userData["LanguageID"]
-      self.longname = userData["Longname"]
+      self.longName = userData["Longname"]
       self.mail = userData["MailAddress"]
     end
   end

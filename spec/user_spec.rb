@@ -25,8 +25,8 @@ module KeytechKit
         expect(currentUser).not_to be nil
         expect(currentUser.name).to eq(KeytechKit::DEMO_USER)
 
-        favorites = keytechKit.currentUser.queries
-        expect(favorites).not_to be nil
+        queries = keytechKit.currentUser.queries
+        expect(queries).not_to be nil
     end
 
   end
