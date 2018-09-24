@@ -80,7 +80,6 @@ module KeytechKit
       return searchResponseHeader.elementList
     end
 
-
     # Loads the preview image. This is always a smaller, not for direct use image file
     def preview(elementKey)
 
@@ -98,10 +97,32 @@ module KeytechKit
       return response
     end
 
-    def save(element)
-      #TODO: Save element
+    def newElement(classKey)
+      Element.new( { "Key" => classKey } )
     end
 
+    # Saves a element to keytech web api and returns the saved element.
+    # If anything goes wrong - a http response is returned
+    def save(element)
+      elementHash = element.to_hash
+      parameter = { basic_auth: @auth ,
+        :body => elementHash.to_json,
+        :headers => { 'Content-Type' => 'application/json' }
+      }
+      save_response = self.class.post("/elements",parameter)
+      if save_response.success?
+        Element.new(save_response.parsed_response)
+      else
+        save_response
+      end
+    end
+
+    # Deletes an element with the key
+    def delete(elementKey)
+      parameter = { basic_auth: @auth}
+      response = self.class.delete("/elements/#{elementKey}", parameter)
+      return response
+    end
 
   end
 end

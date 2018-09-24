@@ -48,14 +48,33 @@ module KeytechKit
     self.hasVersions = elementData["HasVersions"]
   end
 
+  def to_hash
+   { Key: self.key, Name: self.name, keyValueList: self.keytechKeyValueObject}
+  end
+
+  # This is keytech - Style: key and value in different elements-
+  # No easy parsable hash!
+  # Sorry  it was me. I was young and needed the money ;-)
+  #  {
+  #   "Key": "au_do__categorylocalized",
+  #   "Value": "Blaue Kategorie"
+  # }
+  def keytechKeyValueObject
+    arrayOfKeyValuePairs = Array.new
+    self.keyValueList.each  do |key, value|
+      arrayOfKeyValuePairs.push ({Key: key, Value: value})
+    end
+    arrayOfKeyValuePairs
+  end
 
   private
    def set_key_value_list(kvData)
      self.keyValueList =  Hash.new
-     kvData.each do |kvPair|
-        self.keyValueList[kvPair["Key"].to_s] = kvPair["Value"]
+     if kvData
+       kvData.each do |kvPair|
+          self.keyValueList[kvPair["Key"].to_s] = kvPair["Value"]
+       end
      end
-
    end
 
   end

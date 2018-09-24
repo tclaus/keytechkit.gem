@@ -74,5 +74,43 @@ module KeytechKit
         expect(bom.length).to be > 0
     end
 
+    it "creates a dummy element" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      elements = keytechKit.elements
+      element = elements.newElement("MISC_FILE")
+      expect(element).not_to be nil
+      expect(element.keyValueList).not_to be nil
+    end
+
+    it "stores and deletes a dummy element" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      elements = keytechKit.elements
+      element = elements.newElement("MISC_FILE")
+      saved_element = elements.save(element)
+      expect(saved_element).not_to be nil
+
+      delete_response = elements.delete(saved_element.key)
+      expect(delete_response.success?).to be true
+      expect(delete_response.code).to be 200
+    end
+
+# Create and store keyValue lists
+# au_do__u_description_do_1_de
+
+  it "stores and deletes an element with keyValueList" do
+    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+    elements = keytechKit.elements
+    element = elements.newElement("MISC_FILE")
+    element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
+
+    saved_element = elements.save(element)
+
+    expect(saved_element).not_to be nil
+
+    delete_response = elements.delete(saved_element.key)
+    expect(delete_response.success?).to be true
+  end
+
+
   end
 end
