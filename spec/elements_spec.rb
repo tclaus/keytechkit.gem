@@ -111,6 +111,25 @@ module KeytechKit
     expect(delete_response.success?).to be true
   end
 
+  it "loads a already deleted element without troubles - not" do
+    # Will load an element, that has been deleted.
+    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+    elements = keytechKit.elements
+    element = elements.newElement("MISC_FILE")
+    element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
+
+    saved_element = elements.save(element)
+
+    expect(saved_element).not_to be nil
+
+    delete_response = elements.delete(saved_element.key)
+    expect(delete_response.success?).to be true
+
+    # Load again
+    ghost_element = elements.load(saved_element.key)
+    expect(ghost_element).to be nil
+  end
+
 
   end
 end

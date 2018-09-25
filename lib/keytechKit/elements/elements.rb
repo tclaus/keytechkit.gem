@@ -18,7 +18,7 @@ module KeytechKit
     # Find an existing element with +elementkey+ in form of classkey:<nummeric>
     # e.g.: MISC_FILE:1234
     # +options+ is one of attributes=ALL|NONE|EDITOR
-
+    # It returns nil if no element with this elementKey was found
     def load(elementKey, options = {})
       parameter = {query: options}
       parameter.merge!({ basic_auth: @auth })
@@ -28,75 +28,12 @@ module KeytechKit
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
         searchResponseHeader.elementList.first
-       else
-         raise response.response
+        # TODO: Can we do better if element was not found?
       end
     end
 
-
-    # Loads the structure
-    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
-    # Returns a list of elements
-    def structure(elementKey, options = {})
-      parameter = {query: options}
-      parameter.merge!({ basic_auth: @auth })
-      response = self.class.get("/elements/#{elementKey}/structure", parameter)
-      searchResponseHeader = SearchResponseHeader.new(response)
-
-      return searchResponseHeader.elementList
-    end
-
-    # Loads the parent elements
-    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
-    # Returns a list of elements
-    def whereused(elementKey, options = {})
-      parameter = {query: options}
-      parameter.merge!({ basic_auth: @auth })
-
-      response = self.class.get("/elements/#{elementKey}/whereused", parameter)
-      searchResponseHeader = SearchResponseHeader.new(response)
-
-      return searchResponseHeader.elementList
-    end
-
-    # Loads the bill of meterial on articles
-    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
-    # Returns a list of elements
-    def billOfMaterial(elementKey, options = {})
-      parameter = {query: options}
-      parameter.merge!({ basic_auth: @auth })
-
-      response = self.class.get("/elements/#{elementKey}/bom", parameter)
-      billOfMaterial = BillOfMaterial.new(response)
-      return billOfMaterial.bomElementList
-    end
-
-    def notes(elementkey)
-      parameter = { basic_auth: @auth }
-
-      response = self.class.get("/elements/#{elementKey}/notes", parameter)
-      searchResponseHeader = SearchResponseHeader.new(response)
-
-      return searchResponseHeader.elementList
-    end
-
-    # Loads the preview image. This is always a smaller, not for direct use image file
-    def preview(elementKey)
-
-      parameter = { basic_auth: @auth }
-      response = self.class.get("/elements/#{elementKey}/preview", parameter)
-
-      return response
-    end
-
-    # Loads a small thumbnail
-    def thumbnail(elementKey)
-      parameter = { basic_auth: @auth }
-      response = self.class.get("/elements/#{elementKey}/thumbnail", parameter)
-
-      return response
-    end
-
+    # It returns a element prototype with the given elementKey
+    # you can check valid elementkeys with the classdefinition
     def newElement(classKey)
       Element.new( { "Key" => classKey } )
     end
@@ -112,15 +49,88 @@ module KeytechKit
       save_response = self.class.post("/elements",parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
-      else
-        save_response
       end
     end
 
     # Deletes an element with the key
+    # It returns the http response.
     def delete(elementKey)
       parameter = { basic_auth: @auth}
       response = self.class.delete("/elements/#{elementKey}", parameter)
+      return response
+    end
+
+    # Loads the structure
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    # It returns nil if no element with this elementKey was found
+    def structure(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+      response = self.class.get("/elements/#{elementKey}/structure", parameter)
+      if response.success?
+        searchResponseHeader = SearchResponseHeader.new(response)
+        return searchResponseHeader.elementList
+      end
+    end
+
+    # Loads the parent elements
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    # It returns nil if no element with this elementKey was found
+    def whereused(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+
+      response = self.class.get("/elements/#{elementKey}/whereused", parameter)
+      if response.success?
+        searchResponseHeader = SearchResponseHeader.new(response)
+        return searchResponseHeader.elementList
+      end
+    end
+
+    # Loads the bill of meterial on articles
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    # It returns nil if no element with this elementKey was found
+    def billOfMaterial(elementKey, options = {})
+      parameter = {query: options}
+      parameter.merge!({ basic_auth: @auth })
+
+      response = self.class.get("/elements/#{elementKey}/bom", parameter)
+      if response.success?
+        billOfMaterial = BillOfMaterial.new(response)
+        return billOfMaterial.bomElementList
+      end
+    end
+
+    # It returns the notes of an element if anything are given
+    # Notes list can be empty
+    # It returns nil if no element with this elementKey was found
+    def notes(elementkey)
+      parameter = { basic_auth: @auth }
+
+      response = self.class.get("/elements/#{elementKey}/notes", parameter)
+      if response.success?
+        searchResponseHeader = SearchResponseHeader.new(response)
+        return searchResponseHeader.elementList
+      end
+    end
+
+    # Loads the preview image. This is a size limited image version of the files
+    # content. Text documents often show the first Page.
+    # Make no assumtions about the image size
+    def preview(elementKey)
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/preview", parameter)
+      return response
+    end
+
+    # Loads a small thumbnail. Thumbnails are like file type icons.
+    # They normaly show the type of a document, not its content
+    def thumbnail(elementKey)
+      parameter = { basic_auth: @auth }
+      response = self.class.get("/elements/#{elementKey}/thumbnail", parameter)
       return response
     end
 

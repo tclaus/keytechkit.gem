@@ -14,9 +14,11 @@ module KeytechKit
     def hasMasterfile(elementKey)
       if Tools.classType(elementKey) == "DO" # Only DO Types can have a file
         fileList = load(elementKey)
-        fileList.each do |file|
-          if file.fileStorageType.downcase == "master"
-            return true
+        if fileList != nil
+          fileList.each do |file|
+            if file.fileStorageType.downcase == "master"
+              return true
+            end
           end
         end
       end
@@ -27,9 +29,11 @@ module KeytechKit
     def masterfileInfo(elementKey)
       if Tools.classType(elementKey) == "DO" # Only DO Types can have a file
         fileList = load(elementKey)
-        fileList.each do |file|
-          if file.fileStorageType.downcase == "master"
-            return file
+        if fileList != nil
+          fileList.each do |file|
+            if file.fileStorageType.downcase == "master"
+              return file
+            end
           end
         end
       end
@@ -40,9 +44,11 @@ module KeytechKit
     # Returns the name of a masterfile if present
     def masterfilename(elementKey)
       fileList = load(elementKey)
-      fileList.each do |file|
-        if file.fileStorageType.downcase! == "master"
-          return file.fileName
+      if fileList != nil
+        fileList.each do |file|
+          if file.fileStorageType.downcase! == "master"
+            return file.fileName
+          end
         end
       end
       return nil
@@ -57,8 +63,6 @@ module KeytechKit
 
       if response.success?
         parse_files(response["FileInfos"])
-       else
-         raise response.response
       end
     end
 
@@ -69,8 +73,6 @@ module KeytechKit
       response = self.class.get("/elements/#{elementKey}/files/masterfile", parameter)
       if response.success?
         return response
-       else
-         raise response.response
       end
     end
 
