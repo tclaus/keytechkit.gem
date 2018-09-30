@@ -24,5 +24,24 @@ module KeytechKit
       end
     end
 
+    def loadAllClasses
+      # Returns a classclasses
+      parameter = { basic_auth: @auth }
+
+      response = self.class.get("/classes", parameter)
+
+      if response.success?
+        # create a class
+        classListData = response["ClassConfigurationList"]
+        classDefinitions = Array.new
+        classListData.each do |classData|
+          classDefinitions.push ClassDefinition.new(classData)
+        end
+        classDefinitions
+       else
+         logger.warn "Could not load a classlist #{response.response}"
+      end
+    end
+
   end
 end

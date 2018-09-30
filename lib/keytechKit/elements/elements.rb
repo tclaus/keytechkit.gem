@@ -49,6 +49,8 @@ module KeytechKit
       save_response = self.class.post("/elements",parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
+      else
+        puts "Could not save element #{save_response.headers['x-errordescription']}"
       end
     end
 

@@ -32,5 +32,14 @@ module KeytechKit
 
     end
 
+    it "loads all classes" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      classes = keytechKit.classes
+      expect(classes).not_to be nil
+
+      classDefinitions = classes.loadAllClasses
+      expect(classDefinitions).not_to be nil
+      expect(classDefinitions.size).to be > 0 
+    end
   end
 end

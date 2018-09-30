@@ -8,6 +8,7 @@ module KeytechKit
     attr_accessor :displayname
     attr_accessor :availableSubareas
     attr_accessor :hasNumberGenerator
+    attr_accessor :isActive
     attr_accessor :Listers
 
     def initialize(classData)
@@ -17,7 +18,8 @@ module KeytechKit
       self.availableSubareas = loadSubAreas(classData["AvailableSubAreas"])
       self.attributesList = classData["AttributesList"]
       self.hasNumberGenerator = classData["HasNumberGenerator"]
-
+      self.isActive = classData["IsActive"]
+      
       # TODO: Attributeslist parsing
 
     end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    keytechkit (0.3.5)
+    keytechkit (0.3.6)
       httparty (~> 0.16)
 
 GEM
@@ -36,4 +36,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   1.16.3
+   1.16.5
