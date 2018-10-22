@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    keytechkit (0.3.6)
+    keytechkit (0.3.7)
       httparty (~> 0.16)
 
 GEM

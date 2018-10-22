@@ -34,8 +34,8 @@ module KeytechKit
 
     # It returns a element prototype with the given elementKey
     # you can check valid elementkeys with the classdefinition
-    def newElement(classKey)
-      Element.new( { "Key" => classKey } )
+    def newElement(key)
+      Element.new( { "Key" => key } )
     end
 
     # Saves a element to keytech web api and returns the saved element.
@@ -50,7 +50,23 @@ module KeytechKit
       if save_response.success?
         Element.new(save_response.parsed_response)
       else
-        puts "Could not save element #{save_response.headers['x-errordescription']}"
+        puts "Could not save element: #{save_response.headers['x-errordescription']}"
+      end
+    end
+
+    # Saves a element to keytech web api and returns the saved element.
+    # If anything goes wrong - a http response is returned
+    def update(element)
+      elementHash = element.to_hash
+      parameter = { basic_auth: @auth ,
+        :body => elementHash.to_json,
+        :headers => { 'Content-Type' => 'application/json' }
+      }
+      save_response = self.class.put("/elements/#{element.key}",parameter)
+      if save_response.success?
+        Element.new(save_response.parsed_response)
+      else
+        puts "Could not save element: #{save_response.headers['x-errordescription']}"
       end
     end
 
