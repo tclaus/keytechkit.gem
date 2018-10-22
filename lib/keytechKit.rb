@@ -9,6 +9,7 @@ require "keytechKit/classes/classes"
 require "keytechKit/classes/layouts"
 require "keytechKit/classes/layout/layout"
 require "keytechKit/elements/files/files"
+require "keytechKit/elements/dd/dataDictionaries"
 
 module KeytechKit
 
@@ -22,6 +23,7 @@ module KeytechKit
 
       attr_accessor :currentUser
       attr_accessor :elements
+      attr_accessor :dataDictionaries
       attr_accessor :notes
       attr_accessor :classes
       attr_accessor :layouts
@@ -65,6 +67,13 @@ module KeytechKit
           @elements = Elements.new(self, @base_url, @username, @password)
         end
         @elements
+      end
+
+      def dataDictionaries()
+        if @dataDictionaries == nil
+          @dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password)
+        end
+        @dataDictionaries
       end
 
       def notes()
