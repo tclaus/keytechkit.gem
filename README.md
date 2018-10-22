@@ -4,7 +4,8 @@
 
 # KeytechKit.gem
 
-This gem provides access to keytech Web API. keytech is the PLM / PDM Software from keytech Software GmbH. This gem is not supported by keytech software GmbH.
+This gem provides access to keytech Web API. keytech is the PLM / PDM Software from keytech Software GmbH. This gem is not supported by keytech Software GmbH.
+Reference implementation can be found on https://plmweb.de
 
 ## Installation
 
@@ -22,9 +23,6 @@ Or install it yourself as:
 
     $ gem install keytechKit
 
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
@@ -40,7 +38,7 @@ Test often, let tests fail fast.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/tclaus/keytechKit.
+Bug reports and pull requests are welcome on GitHub at https://github.com/tclaus/keytechkit.gem.
 
 * Fork the project
 * run 'bundle'
