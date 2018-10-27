@@ -21,7 +21,7 @@ module KeytechKit
         elements = keytechKit.elements
         expect(elements).not_to be nil
 
-        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, attributes: 'all')
         expect(steamroller).not_to be nil
         expect(steamroller.keyValueList).not_to be nil
         expect(steamroller.keyValueList.length).to be > 0
@@ -31,7 +31,7 @@ module KeytechKit
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
-        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, attributes: 'all')
         expect(steamroller).not_to be nil
         expect(elements.preview(steamroller.key)).not_to be nil
     end
@@ -40,7 +40,7 @@ module KeytechKit
         keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
-        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, {"attributes":"all"})
+        steamroller = elements.load(KeytechKit::DEMO_ARTICLE, attributes: 'all')
         expect(steamroller).not_to be nil
         expect(elements.thumbnail(steamroller.key)).not_to be nil
     end
@@ -85,42 +85,37 @@ module KeytechKit
       expect(delete_response.code).to be 200
     end
 
-# Create and store keyValue lists
-# au_do__u_description_do_1_de
+    it "stores and deletes an element with keyValueList" do
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      elements = keytechKit.elements
+      element = elements.newElement("MISC_FILE")
+      element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
 
-  it "stores and deletes an element with keyValueList" do
-    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
-    elements = keytechKit.elements
-    element = elements.newElement("MISC_FILE")
-    element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
+      saved_element = elements.save(element)
 
-    saved_element = elements.save(element)
+      expect(saved_element).not_to be nil
 
-    expect(saved_element).not_to be nil
+      delete_response = elements.delete(saved_element.key)
+      expect(delete_response.success?).to be true
+    end
 
-    delete_response = elements.delete(saved_element.key)
-    expect(delete_response.success?).to be true
-  end
+    it "loads a already deleted element without troubles - not" do
+      # Will load an element, that has been deleted.
+      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      elements = keytechKit.elements
+      element = elements.newElement("MISC_FILE")
+      element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
 
-  it "loads a already deleted element without troubles - not" do
-    # Will load an element, that has been deleted.
-    keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
-    elements = keytechKit.elements
-    element = elements.newElement("MISC_FILE")
-    element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
+      saved_element = elements.save(element)
 
-    saved_element = elements.save(element)
+      expect(saved_element).not_to be nil
 
-    expect(saved_element).not_to be nil
+      delete_response = elements.delete(saved_element.key)
+      expect(delete_response.success?).to be true
 
-    delete_response = elements.delete(saved_element.key)
-    expect(delete_response.success?).to be true
-
-    # Load again
-    ghost_element = elements.load(saved_element.key)
-    expect(ghost_element).to be nil
-  end
-
-
+      # Load again
+      ghost_element = elements.load(saved_element.key)
+      expect(ghost_element).to be nil
+    end
   end
 end

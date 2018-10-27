@@ -21,7 +21,7 @@ module KeytechKit
     # It returns nil if no element with this elementKey was found
     def load(elementKey, options = {})
       parameter = { query: options }
-      parameter.merge!({ basic_auth: @auth })
+      parameter[:basic_auth] = @auth
 
       response = self.class.get("/elements/#{elementKey}", parameter)
 
@@ -35,17 +35,17 @@ module KeytechKit
     # It returns a element prototype with the given elementKey
     # you can check valid elementkeys with the classdefinition
     def newElement(key)
-      Element.new( { "Key" => key } )
+      Element.new('Key' => key)
     end
 
     # Saves a element to keytech web api and returns the saved element.
     # If anything goes wrong - a http response is returned
     def save(element)
       elementHash = element.to_hash
-      parameter = { basic_auth: @auth ,
-        :body => elementHash.to_json,
-        :headers => { 'Content-Type' => 'application/json' }
-      }
+      parameter = { basic_auth: @auth,
+        :body     => elementHash.to_json,
+        :headers  => { 'Content-Type' => 'application/json' }
+        }
       save_response = self.class.post("/elements",parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
@@ -83,8 +83,8 @@ module KeytechKit
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
     def structure(elementKey, options = {})
-      parameter = {query: options}
-      parameter.merge!({ basic_auth: @auth })
+      parameter = { query: options }
+      parameter[:basic_auth] = @auth
       response = self.class.get("/elements/#{elementKey}/structure", parameter)
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
@@ -97,8 +97,8 @@ module KeytechKit
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
     def whereused(elementKey, options = {})
-      parameter = {query: options}
-      parameter.merge!({ basic_auth: @auth })
+      parameter = { query: options }
+      parameter[:basic_auth] = @auth
 
       response = self.class.get("/elements/#{elementKey}/whereused", parameter)
       if response.success?
@@ -113,12 +113,26 @@ module KeytechKit
     # It returns nil if no element with this elementKey was found
     def billOfMaterial(elementKey, options = {})
       parameter = { query: options }
-      parameter.merge!({ basic_auth: @auth })
+      parameter[:basic_auth] = @auth
 
       response = self.class.get("/elements/#{elementKey}/bom", parameter)
       if response.success?
         billOfMaterial = BillOfMaterial.new(response)
         return billOfMaterial.bomElementList
+      end
+    end
+
+    # Loads the list of mails on folders,
+    # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
+    # Returns a list of elements
+    # It returns nil if no element with this elementKey was found
+    def mails(elementKey, options = {})
+      parameter = { query: options }
+      parameter[:basic_auth] = @auth
+
+      response = self.class.get("/elements/#{elementKey}/mails", parameter)
+      if response.success?
+        return response['ElementList']
       end
     end
 

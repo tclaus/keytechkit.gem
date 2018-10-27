@@ -16,7 +16,6 @@ module KeytechKit
       definition = dataDictionaries.getDefinition(DDID_WITH_DATA)
       expect(definition).not_to be nil
       expect(definition.size).to be > 0
-      puts "#{definition.inspect}"
     end
 
     it "loads a data dictionary data" do
@@ -26,7 +25,6 @@ module KeytechKit
       data = dataDictionaries.getData(DDID_WITH_DATA)
       expect(data).not_to be nil
       expect(data.size).to be > 0
-      puts "#{data.inspect}"
     end
 
   end

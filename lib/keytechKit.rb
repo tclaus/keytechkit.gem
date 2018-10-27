@@ -30,7 +30,7 @@ module KeytechKit
       attr_accessor :files
       attr_accessor :search
 
-      def initialize(baseurl, username = "" ,password = "")
+      def initialize(baseurl, username = '', password = '')
         @base_url = baseurl
 
         @username = username
@@ -49,12 +49,12 @@ module KeytechKit
         @password = password
       end
 
-    # Functions here
+      # Functions here
       def serverinfo
         Serverinfo.load(base_url)
       end
 
-      def currentUser()
+      def currentUser
         if @currentUser == nil
           user = User.new(@base_url, @username, @password)
           @currentUser = user.load(@username)
@@ -62,55 +62,53 @@ module KeytechKit
         @currentUser
       end
 
-      def elements()
-        if @elements == nil
+      def elements
+        if @elements.nil?
           @elements = Elements.new(self, @base_url, @username, @password)
         end
         @elements
       end
 
-      def dataDictionaries()
-        if @dataDictionaries == nil
+      def dataDictionaries
+        if @dataDictionaries.nil?
           @dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password)
         end
         @dataDictionaries
       end
 
-      def notes()
-        if @notes == nil
+      def notes
+        if @notes.nil?
           @notes = Notes.new(@base_url, @username, @password)
         end
         @notes
       end
 
-      def classes()
-        if @classes == nil
+      def classes
+        if @classes.nil?
           @classes = Classes.new(@base_url, @username, @password)
         end
         @classes
       end
 
-      def layouts()
-        if @layouts == nil
+      def layouts
+        if @layouts.nil?
           @layouts = Layouts.new(@base_url, @username, @password)
         end
         @layouts
       end
 
-      def files()
-        if @files == nil
+      def files
+        if @files.nil?
           @files = Files.new(@base_url, @username, @password)
         end
         @files
       end
 
-      def search()
-        if @search == nil
+      def search
+        if @search.nil?
           @search = Search.new(@base_url, @username, @password)
         end
         @search
       end
-
   end
-
 end
