@@ -1,6 +1,7 @@
 module KeytechKit
   class BomElement
     attr_accessor :key
+    attr_accessor :elementKey
     attr_accessor :keyValueList
     attr_accessor :cadCount
     attr_accessor :cadDriven
@@ -14,6 +15,7 @@ module KeytechKit
 
     def initialize(bomElementData)
       self.key = bomElementData["Key"]
+      self.elementKey = bomElementData["Element"]["Key"]
       self.cadCount = bomElementData["CadCount"]
       self.cadDriven = bomElementData["CadDriven"]
       self.changedBy = bomElementData["ChangedBy"]

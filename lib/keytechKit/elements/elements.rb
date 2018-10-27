@@ -20,7 +20,7 @@ module KeytechKit
     # +options+ is one of attributes=ALL|NONE|EDITOR
     # It returns nil if no element with this elementKey was found
     def load(elementKey, options = {})
-      parameter = {query: options}
+      parameter = { query: options }
       parameter.merge!({ basic_auth: @auth })
 
       response = self.class.get("/elements/#{elementKey}", parameter)
@@ -58,7 +58,7 @@ module KeytechKit
     # If anything goes wrong - a http response is returned
     def update(element)
       elementHash = element.to_hash
-      parameter = { basic_auth: @auth ,
+      parameter = { basic_auth: @auth,
         :body => elementHash.to_json,
         :headers => { 'Content-Type' => 'application/json' }
       }
@@ -112,7 +112,7 @@ module KeytechKit
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
     def billOfMaterial(elementKey, options = {})
-      parameter = {query: options}
+      parameter = { query: options }
       parameter.merge!({ basic_auth: @auth })
 
       response = self.class.get("/elements/#{elementKey}/bom", parameter)
@@ -125,13 +125,13 @@ module KeytechKit
     # It returns the notes of an element if anything are given
     # Notes list can be empty
     # It returns nil if no element with this elementKey was found
-    def notes(elementkey)
+    def notes(element_key)
       parameter = { basic_auth: @auth }
 
-      response = self.class.get("/elements/#{elementKey}/notes", parameter)
+      response = self.class.get("/elements/#{element_key}/notes", parameter)
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
-        return searchResponseHeader.elementList
+        searchResponseHeader.elementList
       end
     end
 
@@ -140,16 +140,14 @@ module KeytechKit
     # Make no assumtions about the image size
     def preview(elementKey)
       parameter = { basic_auth: @auth }
-      response = self.class.get("/elements/#{elementKey}/preview", parameter)
-      return response
+      self.class.get("/elements/#{elementKey}/preview", parameter)
     end
 
     # Loads a small thumbnail. Thumbnails are like file type icons.
     # They normaly show the type of a document, not its content
     def thumbnail(elementKey)
       parameter = { basic_auth: @auth }
-      response = self.class.get("/elements/#{elementKey}/thumbnail", parameter)
-      return response
+      self.class.get("/elements/#{elementKey}/thumbnail", parameter)
     end
 
   end
