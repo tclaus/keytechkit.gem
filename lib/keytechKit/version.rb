@@ -1,5 +1,5 @@
 module KeytechKit
-  VERSION = "0.3.11"
+  VERSION = "0.3.12"
 
   DEMO_URL = "https://demo.keytech.de"
   DEMO_USER = "jgrant"
