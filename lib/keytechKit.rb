@@ -8,7 +8,7 @@ require "keytechKit/elements/notes/notes"
 require "keytechKit/classes/classes"
 require "keytechKit/classes/layouts"
 require "keytechKit/classes/layout/layout"
-require "keytechKit/elements/files/files"
+require "keytechKit/elements/elementFiles/elementFiles"
 require "keytechKit/elements/dd/dataDictionaries"
 
 module KeytechKit
@@ -21,14 +21,14 @@ module KeytechKit
       attr_accessor :username
       attr_accessor :password
 
-      attr_accessor :currentUser
-      attr_accessor :elements
-      attr_accessor :dataDictionaries
-      attr_accessor :notes
-      attr_accessor :classes
-      attr_accessor :layouts
-      attr_accessor :files
-      attr_accessor :search
+      attr_accessor :_currentUser
+      attr_accessor :_elements
+      attr_accessor :_dataDictionaries
+      attr_accessor :_notes
+      attr_accessor :_classes
+      attr_accessor :_layouts
+      attr_accessor :_files
+      attr_accessor :_search
 
       def initialize(baseurl, username = '', password = '')
         @base_url = baseurl
@@ -55,32 +55,32 @@ module KeytechKit
       end
 
       def currentUser
-        if @currentUser == nil
+        if @_currentUser == nil
           user = User.new(@base_url, @username, @password)
-          @currentUser = user.load(@username)
+          @_currentUser = user.load(@username)
         end
-        @currentUser
+        @_currentUser
       end
 
       def elements
-        if @elements.nil?
-          @elements = Elements.new(self, @base_url, @username, @password)
+        if @_elements.nil?
+          @_elements = Elements.new(self, @base_url, @username, @password)
         end
-        @elements
+        @_elements
       end
 
       def dataDictionaries
-        if @dataDictionaries.nil?
-          @dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password)
+        if @_dataDictionaries.nil?
+          @_dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password)
         end
-        @dataDictionaries
+        @_dataDictionaries
       end
 
       def notes
-        if @notes.nil?
-          @notes = Notes.new(@base_url, @username, @password)
+        if @_notes.nil?
+          @_notes = Notes.new(@base_url, @username, @password)
         end
-        @notes
+        @_notes
       end
 
       def classes
@@ -91,24 +91,22 @@ module KeytechKit
       end
 
       def layouts
-        if @layouts.nil?
-          @layouts = Layouts.new(@base_url, @username, @password)
+        if @_layouts.nil?
+          @_layouts = Layouts.new(@base_url, @username, @password)
         end
-        @layouts
+        @_layouts
       end
 
       def files
-        if @files.nil?
-          @files = Files.new(@base_url, @username, @password)
-        end
-        @files
+        @_files = ElementFiles.new(@base_url, @username, @password) if @_files.nil?
+        @_files
       end
 
       def search
-        if @search.nil?
-          @search = Search.new(@base_url, @username, @password)
+        if @_search.nil?
+          @_search = Search.new(@base_url, @username, @password)
         end
-        @search
+        @_search
       end
   end
 end

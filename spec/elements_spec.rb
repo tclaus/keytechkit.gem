@@ -2,13 +2,13 @@ module KeytechKit
   RSpec.describe KeytechKit do
 
     it "loads a element object" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
     end
 
     it "find the steamroller element" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
 
@@ -17,7 +17,7 @@ module KeytechKit
     end
 
     it "loads the steamroller element with full keyvaluelist" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
 
@@ -28,7 +28,7 @@ module KeytechKit
     end
 
     it "loads the steamroller preview" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
         steamroller = elements.load(KeytechKit::DEMO_ARTICLE, attributes: 'all')
@@ -46,7 +46,7 @@ module KeytechKit
     end
 
     it "loads the steamroller structure" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
         structure = elements.structure(DEMO_ARTICLE)
@@ -55,7 +55,7 @@ module KeytechKit
     end
 
     it "loads the steamroller parents" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
         structure = elements.structure(DEMO_ARTICLE)
@@ -74,7 +74,7 @@ module KeytechKit
     end
 
     it "stores and deletes a dummy element" do
-      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       elements = keytechKit.elements
       element = elements.newElement("MISC_FILE")
       saved_element = elements.save(element)
@@ -86,7 +86,7 @@ module KeytechKit
     end
 
     it "stores and deletes an element with keyValueList" do
-      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       elements = keytechKit.elements
       element = elements.newElement("MISC_FILE")
       element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"
@@ -101,7 +101,7 @@ module KeytechKit
 
     it "loads a already deleted element without troubles - not" do
       # Will load an element, that has been deleted.
-      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
       elements = keytechKit.elements
       element = elements.newElement("MISC_FILE")
       element.keyValueList["au_do__u_description_do_1_de"] = "Dies ist ein test - Element"

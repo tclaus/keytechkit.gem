@@ -4,13 +4,13 @@ module KeytechKit
     ElementWithFiles = "3DMISC_SLDASM:500089"
 
     it "loads a files object" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
     end
 
     it "find the filelist" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -20,7 +20,7 @@ module KeytechKit
     end
 
     it "find the masterfile" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -30,7 +30,7 @@ module KeytechKit
     end
 
     it "element has a masterfile" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -40,7 +40,7 @@ module KeytechKit
     end
 
     it "element has no masterfile" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -50,7 +50,7 @@ module KeytechKit
     end
 
     it "loads the masterfile fileinfos" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -61,7 +61,7 @@ module KeytechKit
     end
 
     it "loads the masterfile filename" do
-        keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         files = keytechKit.files
         expect(files).not_to be nil
 
@@ -71,6 +71,17 @@ module KeytechKit
         # The masterfileID can be downloaded
     end
 
+    it "uploads a file" do
+      keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+      # create a dummy File.read(elements = keytechKit.elements
+      element = keytechKit.elements.newElement('MISC_FILE')
+      element = keytechKit.elements.save(element)
 
+      file = File.new('spec/fixtures/image_file.jpg')
+      keytechKit.files.uploadMasterFile(element.key, file, 'image_file.jpg')
+
+      keytechKit.elements.delete(element.key)
+      # delete after upload
+    end
   end
 end

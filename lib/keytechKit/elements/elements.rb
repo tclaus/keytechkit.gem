@@ -72,10 +72,13 @@ module KeytechKit
 
     # Deletes an element with the key
     # It returns the http response.
-    def delete(elementKey)
+    def delete(element_key)
       parameter = { basic_auth: @auth}
-      response = self.class.delete("/elements/#{elementKey}", parameter)
-      return response
+      response = self.class.delete("/elements/#{element_key}", parameter)
+      if !response.success?
+        puts "Could not save element: #{response.headers['x-errordescription']}"
+      end
+      response
     end
 
     # Loads the structure

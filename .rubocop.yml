@@ -1,0 +1,9 @@
+
+Rails:
+  Enabled: true
+
+Style/Encoding:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 99
