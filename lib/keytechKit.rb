@@ -12,7 +12,6 @@ require "keytechKit/elements/elementFiles/elementFiles"
 require "keytechKit/elements/dd/dataDictionaries"
 
 module KeytechKit
-
   class Keytech_Kit
       # set base url
       # setusername / Password

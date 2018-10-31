@@ -78,7 +78,14 @@ module KeytechKit
       element = keytechKit.elements.save(element)
 
       file = File.new('spec/fixtures/image_file.jpg')
-      keytechKit.files.uploadMasterFile(element.key, file, 'image_file.jpg')
+      result = keytechKit.files.uploadMasterFile(element.key, file, 'image_file.jpg')
+      expect(result[:success]).to be true
+
+      result = keytechKit.files.uploadPreviewFile(element.key, file, 'thumbnail.jpg')
+      expect(result[:success]).to be true
+
+      result = keytechKit.files.uploadQuickPreviewFile(element.key, file, 'thumbnail.jpg')
+      expect(result[:success]).to be true
 
       keytechKit.elements.delete(element.key)
       # delete after upload

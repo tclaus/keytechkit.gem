@@ -44,13 +44,13 @@ module KeytechKit
       elementHash = element.to_hash
       parameter = { basic_auth: @auth,
         :body     => elementHash.to_json,
-        :headers  => { 'Content-Type' => 'application/json' }
+        :headers  => { 'Content-Type' => 'application/json; charset=utf-8 ' }
         }
       save_response = self.class.post("/elements",parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
       else
-        puts "Could not save element: #{save_response.headers['x-errordescription']}"
+        logger.warn "Could not save element: #{save_response.headers['x-errordescription']}"
       end
     end
 
@@ -60,7 +60,7 @@ module KeytechKit
       elementHash = element.to_hash
       parameter = { basic_auth: @auth,
         :body => elementHash.to_json,
-        :headers => { 'Content-Type' => 'application/json' }
+        :headers => { 'Content-Type' => 'application/json; charset=utf-8 ' }
       }
       save_response = self.class.put("/elements/#{element.key}",parameter)
       if save_response.success?
@@ -166,6 +166,5 @@ module KeytechKit
       parameter = { basic_auth: @auth }
       self.class.get("/elements/#{elementKey}/thumbnail", parameter)
     end
-
   end
 end

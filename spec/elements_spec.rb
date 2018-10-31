@@ -55,7 +55,7 @@ module KeytechKit
     end
 
     it "loads the steamroller parents" do
-        keytechKit  Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
+        keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
         elements = keytechKit.elements
         expect(elements).not_to be nil
         structure = elements.structure(DEMO_ARTICLE)
