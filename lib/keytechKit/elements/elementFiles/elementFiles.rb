@@ -14,11 +14,9 @@ module KeytechKit
     def hasMasterfile(element_key)
       if Tools.classType(element_key) == 'DO' # Only DO Types can have a file
         file_list = load(element_key)
-        if !file_list.nil?
+        unless file_list.nil?
           file_list.each do |file|
-            if file.fileStorageType.downcase == "master"
-              return true
-            end
+            return true if file.fileStorageType.casecmp('master').zero?
           end
         end
       end
@@ -29,11 +27,9 @@ module KeytechKit
     def masterfileInfo(element_key)
       if Tools.classType(element_key) == 'DO' # Only DO Types can have a file
         file_list = load(element_key)
-        if !file_list.nil?
+        unless file_list.nil?
           file_list.each do |file|
-            if file.fileStorageType.downcase == 'master'
-              return file
-            end
+            return file if file.fileStorageType.casecmp('master').zero?
           end
         end
       end
@@ -43,11 +39,9 @@ module KeytechKit
     # Returns the name of a masterfile if present
     def masterfilename(element_key)
       file_list = load(element_key)
-      if !file_list.nil?
+      unless file_list.nil?
         file_list.each do |file|
-          if file.fileStorageType.downcase! == 'master'
-            return file.fileName
-          end
+          return file.fileName if file.fileStorageType.downcase! == 'master'
         end
       end
       ''
@@ -60,19 +54,15 @@ module KeytechKit
 
       response = self.class.get("/elements/#{element_key}/files", parameter)
 
-      if response.success?
-        parse_files(response["FileInfos"])
-      end
+      parse_files(response['FileInfos']) if response.success?
     end
 
     # Loads the masterfile directly
     def loadMasterfile(element_key)
       parameter = { basic_auth: @auth }
-      puts "Loading masterfile..."
+      puts 'Loading masterfile...'
       response = self.class.get("/elements/#{element_key}/files/masterfile", parameter)
-      if response.success?
-        return response
-      end
+      return response if response.success?
     end
 
     # Masterfile is the main file attached to a document
@@ -82,13 +72,11 @@ module KeytechKit
       content_length = file.size
       content_type = 'application/octet-stream; charset=utf-8'
       parameter = { basic_auth: @auth,
-        headers: { 'Content-Type' => content_type,
-                 'Content-Length' => "#{content_length}",
-                    'storageType' => 'MASTER',
-                       'filename' => "#{original_filename}"
-                    },
-        body: file.read
-      }
+                    headers: { 'Content-Type' => content_type,
+                               'Content-Length' => content_length.to_s,
+                               'storageType' => 'MASTER',
+                               'filename' => original_filename.to_s },
+                    body: file.read }
       upload_file element_key, parameter
     end
 
@@ -103,13 +91,11 @@ module KeytechKit
       content_type = 'application/octet-stream; charset=utf-8'
 
       parameter = { basic_auth: @auth,
-        headers: { 'Content-Type' => content_type,
-                 'Content-Length' => "#{content_length}",
-                    'storageType' => 'PREVIEW',
-                       'filename' => "#{original_filename}"
-                    },
-        body: file.read
-      }
+                    headers: { 'Content-Type' => content_type,
+                               'Content-Length' => content_length.to_s,
+                               'storageType' => 'PREVIEW',
+                               'filename' => original_filename.to_s },
+                    body: file.read }
       upload_file element_key, parameter
     end
 
@@ -122,20 +108,18 @@ module KeytechKit
       content_type = 'application/octet-stream; charset=utf-8'
 
       parameter = { basic_auth: @auth,
-        headers: { 'Content-Type' => content_type,
-                 'Content-Length' => "#{content_length}",
-                    'storageType' => 'QUICKPREVIEW',
-                       'filename' => "#{original_filename}"
-                    },
-        body: file.read
-      }
+                    headers: { 'Content-Type' => content_type,
+                               'Content-Length' => content_length.to_s,
+                               'storageType' => 'QUICKPREVIEW',
+                               'filename' => original_filename.to_s },
+                    body: file.read }
       upload_file element_key, parameter
     end
 
     private
 
     def upload_file(element_key, parameter)
-      response = self.class.post("/elements/#{element_key}/files",parameter)
+      response = self.class.post("/elements/#{element_key}/files", parameter)
       if response.success?
         return { success: true, location: response.headers['location'].to_s }
       else
@@ -143,12 +127,12 @@ module KeytechKit
       end
     end
 
-   def parse_files(filesResult)
-     files = Array.new
-     filesResult.each do |fileData|
+    def parse_files(filesResult)
+      files = []
+      filesResult.each do |fileData|
         files.push ElementFile.new(fileData)
-     end
-     files
-   end
+      end
+      files
+    end
   end
 end

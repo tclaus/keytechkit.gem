@@ -14,19 +14,20 @@ module KeytechKit
 
       response = self.class.get("/elements/#{elementKey}/notes", parameter)
       if response.success?
-        parse_notes(response["NotesList"])
-       else
-         raise response.response
+        parse_notes(response['NotesList'])
+      else
+        raise response.response
       end
     end
 
     private
-   def parse_notes(notesResult)
-     notes = Array.new
-     notesResult.each do |noteData|
-        notes.push Note.new(noteData)
-     end
-     notes
-   end
+
+    def parse_notes(notesResult)
+      notes = []
+      notesResult.each do |notedata|
+        notes.push Note.new(notedata)
+      end
+      notes
+    end
   end
 end

@@ -62,37 +62,27 @@ module KeytechKit
       end
 
       def elements
-        if @_elements.nil?
-          @_elements = Elements.new(self, @base_url, @username, @password)
-        end
+        @_elements = Elements.new(self, @base_url, @username, @password) if @_elements.nil?
         @_elements
       end
 
       def dataDictionaries
-        if @_dataDictionaries.nil?
-          @_dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password)
-        end
+        @_dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password) if @_dataDictionaries.nil?
         @_dataDictionaries
       end
 
       def notes
-        if @_notes.nil?
-          @_notes = Notes.new(@base_url, @username, @password)
-        end
+        @_notes = Notes.new(@base_url, @username, @password) if @_notes.nil?
         @_notes
       end
 
       def classes
-        if @classes.nil?
-          @classes = Classes.new(@base_url, @username, @password)
-        end
+        @classes = Classes.new(@base_url, @username, @password) if @classes.nil?
         @classes
       end
 
       def layouts
-        if @_layouts.nil?
-          @_layouts = Layouts.new(@base_url, @username, @password)
-        end
+        @_layouts = Layouts.new(@base_url, @username, @password) if @_layouts.nil?
         @_layouts
       end
 
@@ -102,9 +92,7 @@ module KeytechKit
       end
 
       def search
-        if @_search.nil?
-          @_search = Search.new(@base_url, @username, @password)
-        end
+        @_search = Search.new(@base_url, @username, @password) if @_search.nil?
         @_search
       end
   end

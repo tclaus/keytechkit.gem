@@ -18,9 +18,9 @@ module KeytechKit
 
       response = self.class.get("/datadictionaries/#{ddID}", parameter)
       if response.success?
-        parse_dataDictionaryDefinition(response["AttributeDefinition"])
-       else
-         raise response.response
+        parse_dataDictionaryDefinition(response['AttributeDefinition'])
+      else
+        raise response.response
       end
     end
 
@@ -31,20 +31,20 @@ module KeytechKit
 
       response = self.class.get("/datadictionaries/#{ddID}/data", parameter)
       if response.success?
-        response["Data"]
-       else
-         raise response.response
+        response['Data']
+      else
+        raise response.response
       end
     end
 
-  private
+    private
+
     def parse_dataDictionaryDefinition(definitionArray)
-      definition = Array.new
+      definition = []
       definitionArray.each do |definitionData|
-         definition.push DDDefinition.new(definitionData)
+        definition.push DDDefinition.new(definitionData)
       end
       definition
     end
-
   end
 end

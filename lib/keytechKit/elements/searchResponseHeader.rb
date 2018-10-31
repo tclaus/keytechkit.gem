@@ -3,7 +3,6 @@ require 'keytechKit/elements/groupBy'
 module KeytechKit
   # Represents the header from search results
   class SearchResponseHeader
-
     attr_accessor :pageNumber
     attr_accessor :pageSize
     attr_accessor :totalRecords
@@ -17,16 +16,16 @@ module KeytechKit
     private
 
     def parseResponse(response)
-      @pageNumber = response["PageNumber"]
-      @pageSize = response["PageSize"]
-      @totalRecords = response["Totalrecords"]
-      @elementList = parseElementList(response["ElementList"])
-      @groupBy = parseGroupBy(response["GroupBy"])
+      @pageNumber = response['PageNumber']
+      @pageSize = response['PageSize']
+      @totalRecords = response['Totalrecords']
+      @elementList = parseElementList(response['ElementList'])
+      @groupBy = parseGroupBy(response['GroupBy'])
     end
 
     def parseGroupBy(groupByResults)
       if groupByResults
-        groupByArray = Array.new
+        groupByArray = []
         groupByResults.each do |groupBy|
           groupByArray.push GroupBy.new(groupBy)
         end
@@ -35,13 +34,12 @@ module KeytechKit
     end
 
     def parseElementList(elementResults)
-      elements  = Array.new
+      elements = []
       elementResults.each do |elementData|
         element = Element.new(elementData)
         elements.push element
       end
       @elementList = elements
     end
-
   end
 end

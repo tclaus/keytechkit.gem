@@ -2,6 +2,8 @@ require 'keytechKit/targetlink'
 module KeytechKit
   class User
     include HTTParty
+    default_timeout 10
+
     attr_accessor :response
 
     attr_accessor :isActive
@@ -21,54 +23,54 @@ module KeytechKit
     # username = key of user
     def load(username)
       options = {}
-      options.merge!(basic_auth: @auth)
+      options[:basic_auth] = @auth
       response = self.class.get("/user/#{username}", options)
       if response.success?
-         self.response = response
-         parse_response
-         self
-       else
-         raise response.response
+        self.response = response
+        parse_response
+        self
+      else
+        raise response.response
       end
     end
 
     def queries(options = {})
-      load_target_links("queries", options)
+      load_target_links('queries', options)
     end
 
     def favorites
-      load_target_links("favorites")
+      load_target_links('favorites')
     end
 
     private
 
     def load_target_links(linkType, options = {})
-      parameter = {query: options}
-      parameter.merge!(basic_auth: @auth)
-      response = self.class.get("/user/#{self.name}/#{linkType}", parameter)
+      parameter = { query: options }
+      parameter[:basic_auth] = @auth
+      response = self.class.get("/user/#{name}/#{linkType}", parameter)
       if response.success?
-         targetLinks_response = response["TargetLinks"]
-         targetLinks  = Array.new
-         targetLinks_response.each do |link_response|
-           targetLinks.push Targetlink.new(link_response)
-         end
-         targetLinks
-       else
-         raise response.response
+        targetLinks_response = response['TargetLinks']
+        targetLinks = []
+        targetLinks_response.each do |link_response|
+          targetLinks.push Targetlink.new(link_response)
+        end
+        targetLinks
+      else
+        raise response.response
       end
     end
 
     def parse_response
       # Only one user should be returns every time
-      userData = self.response["MembersList"][0]
+      userData = response['MembersList'][0]
 
-      self.isActive = userData["IsActive"]
-      self.isAdmin = userData["IsAdmin"]
-      self.isSuperuser = userData["IsSuperuser"]
-      self.name = userData["KeyName"]
-      self.languageID = userData["LanguageID"]
-      self.longName = userData["Longname"]
-      self.mail = userData["MailAddress"]
+      self.isActive = userData['IsActive']
+      self.isAdmin = userData['IsAdmin']
+      self.isSuperuser = userData['IsSuperuser']
+      self.name = userData['KeyName']
+      self.languageID = userData['LanguageID']
+      self.longName = userData['Longname']
+      self.mail = userData['MailAddress']
     end
   end
 end

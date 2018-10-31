@@ -43,10 +43,9 @@ module KeytechKit
     def save(element)
       elementHash = element.to_hash
       parameter = { basic_auth: @auth,
-        :body     => elementHash.to_json,
-        :headers  => { 'Content-Type' => 'application/json; charset=utf-8 ' }
-        }
-      save_response = self.class.post("/elements",parameter)
+                    body: elementHash.to_json,
+                    headers: { 'Content-Type' => 'application/json; charset=utf-8 ' } }
+      save_response = self.class.post('/elements', parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
       else
@@ -59,10 +58,9 @@ module KeytechKit
     def update(element)
       elementHash = element.to_hash
       parameter = { basic_auth: @auth,
-        :body => elementHash.to_json,
-        :headers => { 'Content-Type' => 'application/json; charset=utf-8 ' }
-      }
-      save_response = self.class.put("/elements/#{element.key}",parameter)
+                    body: elementHash.to_json,
+                    headers: { 'Content-Type' => 'application/json; charset=utf-8 ' } }
+      save_response = self.class.put("/elements/#{element.key}", parameter)
       if save_response.success?
         Element.new(save_response.parsed_response)
       else
@@ -73,9 +71,9 @@ module KeytechKit
     # Deletes an element with the key
     # It returns the http response.
     def delete(element_key)
-      parameter = { basic_auth: @auth}
+      parameter = { basic_auth: @auth }
       response = self.class.delete("/elements/#{element_key}", parameter)
-      if !response.success?
+      unless response.success?
         puts "Could not save element: #{response.headers['x-errordescription']}"
       end
       response
@@ -134,9 +132,7 @@ module KeytechKit
       parameter[:basic_auth] = @auth
 
       response = self.class.get("/elements/#{elementKey}/mails", parameter)
-      if response.success?
-        return response['ElementList']
-      end
+      return response['ElementList'] if response.success?
     end
 
     # It returns the notes of an element if anything are given
