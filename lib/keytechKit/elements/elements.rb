@@ -49,7 +49,7 @@ module KeytechKit
       if save_response.success?
         Element.new(save_response.parsed_response)
       else
-        logger.warn "Could not save element: #{save_response.headers['x-errordescription']}"
+        puts "Could not save element: #{save_response.headers['x-errordescription']}"
       end
     end
 

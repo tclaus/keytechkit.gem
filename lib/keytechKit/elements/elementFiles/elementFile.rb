@@ -10,7 +10,7 @@ module KeytechKit
       self.changedAt = file_data['FileLastChangedAt']
       self.fileSize = file_data['FileSize']
       self.fileName = file_data['FileName']
-      self.fileId = file_data['FileId']
+      self.fileId = file_data['FileID']
       self.fileStorageType = file_data['FileStorageType']
     end
   end

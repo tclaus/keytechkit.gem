@@ -39,7 +39,7 @@ module KeytechKit
         end
         classDefinitions
        else
-         logger.warn "Could not load a classlist #{response.response}"
+         puts "Could not load a classlist #{response.response}"
       end
     end
 
