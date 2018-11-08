@@ -1,12 +1,13 @@
+
 module KeytechKit
   RSpec.describe KeytechKit do
     it 'has a version number' do
-      expect(KeytechKit::VERSION).not_to be nil
+      expect(VERSION).not_to be nil
     end
 
     it 'loads serverinfo' do
-      keytechKit =  Keytech_Kit.new(KeytechKit::DEMO_URL)
-      serverinfo = keytechKit.serverinfo
+      keytech_kit = KeytechKit.new(DEMO_URL)
+      serverinfo = keytech_kit.serverinfo
       expect(serverinfo).not_to be nil
 
       expect(serverinfo.database_version).to_not be nil
@@ -14,6 +15,7 @@ module KeytechKit
 
       puts "API Version is #{serverinfo.api_version}"
       puts "Database Version is #{serverinfo.database_version}"
+      # TODO: Extend serverinfos
     end
   end
 end

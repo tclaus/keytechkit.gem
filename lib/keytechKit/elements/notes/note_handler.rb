@@ -1,7 +1,9 @@
 require 'keytechKit/elements/notes/note'
 
 module KeytechKit
-  class Notes
+  ##
+  # Notes
+  class NoteHandler
     include HTTParty
 
     def initialize(base_url, username, password)

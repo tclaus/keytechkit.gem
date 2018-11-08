@@ -1,5 +1,7 @@
 
 module KeytechKit
+  ##
+  # Represents a single element
   class Element
     attr_accessor :key # unique key of this element
     attr_accessor :name
@@ -23,27 +25,27 @@ module KeytechKit
     attr_accessor :version
     attr_accessor :description
 
-    def initialize(elementData)
-      self.key = elementData['Key']
-      self.name = elementData['Name']
-      set_key_value_list(elementData['KeyValueList'])
+    def initialize(data)
+      self.key = data['Key']
+      self.name = data['Name']
+      set_key_value_list(data['KeyValueList'])
 
-      self.displayname = elementData['DisplayName']
-      self.classDisplayName = elementData['ClassDisplayName']
-      self.version = elementData['Version']
-      self.status = elementData['Status']
-      self.description = elementData['Description']
+      self.displayname = data['DisplayName']
+      self.classDisplayName = data['ClassDisplayName']
+      self.version = data['Version']
+      self.status = data['Status']
+      self.description = data['Description']
 
-      self.changedBy = elementData['ChangedBy']
-      self.changedByLong = elementData['ChangedByLong']
-      self.changedAt = elementData['ChangedAt']
+      self.changedBy = data['ChangedBy']
+      self.changedByLong = data['ChangedByLong']
+      self.changedAt = data['ChangedAt']
 
-      self.createdBy = elementData['CreatedBy']
-      self.createdByLong = elementData['CreatedByLong']
-      self.createdAt = elementData['CreatedAt']
+      self.createdBy = data['CreatedBy']
+      self.createdByLong = data['CreatedByLong']
+      self.createdAt = data['CreatedAt']
 
-      self.thumbnailHint = elementData['ThumbnailHint']
-      self.hasVersions = elementData['HasVersions']
+      self.thumbnailHint = data['ThumbnailHint']
+      self.hasVersions = data['HasVersions']
     end
 
     def to_hash
@@ -67,10 +69,10 @@ module KeytechKit
 
     private
 
-    def set_key_value_list(kvData)
+    def set_key_value_list(kv_data)
       self.keyValueList = ({})
-      if kvData
-        kvData.each do |kvPair|
+      if kv_data
+        kv_data.each do |kvPair|
           keyValueList[kvPair['Key'].to_s] = kvPair['Value']
         end
       end

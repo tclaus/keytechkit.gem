@@ -1,7 +1,9 @@
 require 'keytechKit/elements/element'
-require 'keytechKit/elements/groupBy'
+require 'keytechKit/elements/group_by'
 module KeytechKit
+  ##
   # Represents the header from search results
+  #
   class SearchResponseHeader
     attr_accessor :pageNumber
     attr_accessor :pageSize

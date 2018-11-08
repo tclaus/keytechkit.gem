@@ -1,5 +1,8 @@
 require 'keytechKit/targetlink'
 module KeytechKit
+  ##
+  # The user Object
+  # This represents a keytech user.
   class User
     include HTTParty
     default_timeout 10
@@ -62,15 +65,15 @@ module KeytechKit
 
     def parse_response
       # Only one user should be returns every time
-      userData = response['MembersList'][0]
+      user_data = response['MembersList'][0]
 
-      self.isActive = userData['IsActive']
-      self.isAdmin = userData['IsAdmin']
-      self.isSuperuser = userData['IsSuperuser']
-      self.name = userData['KeyName']
-      self.languageID = userData['LanguageID']
-      self.longName = userData['Longname']
-      self.mail = userData['MailAddress']
+      self.isActive = user_data['IsActive']
+      self.isAdmin = user_data['IsAdmin']
+      self.isSuperuser = user_data['IsSuperuser']
+      self.name = user_data['KeyName']
+      self.languageID = user_data['LanguageID']
+      self.longName = user_data['Longname']
+      self.mail = user_data['MailAddress']
     end
   end
 end

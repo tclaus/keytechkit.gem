@@ -1,7 +1,12 @@
 require 'keytechKit/elements/element'
-require 'keytechKit/elements/searchResponseHeader'
+require 'keytechKit/elements/search_response_header'
 
 module KeytechKit
+  ##
+  # Can search the API by fulltext, fields, element types
+  # Can search by a predefined 'stored' query by its queryID
+  # Can sort the results
+  # Can group the results
   class Search
     include HTTParty
 

@@ -1,8 +1,10 @@
 require 'keytechKit/tools'
-require 'keytechKit/elements/elementFiles/elementFile'
+require 'keytechKit/elements/element_files/element_file'
 
 module KeytechKit
-  class ElementFiles
+  ##
+  # Element File handler
+  class ElementFileHandler
     include HTTParty
 
     def initialize(base_url, username, password)
@@ -11,7 +13,7 @@ module KeytechKit
     end
 
     # Returns true or false if a masterfile exist
-    def has_masterfile(element_key)
+    def masterfile?(element_key)
       if Tools.classType(element_key) == 'DO' # Only DO Types can have a file
         file_list = load(element_key)
         unless file_list.nil?
@@ -58,7 +60,6 @@ module KeytechKit
     # Loads the masterfile directly
     def load_masterfile(element_key)
       parameter = { basic_auth: @auth }
-      puts 'Loading masterfile...'
       response = self.class.get("/elements/#{element_key}/files/masterfile", parameter)
       return response if response.success?
     end
@@ -171,8 +172,8 @@ module KeytechKit
 
     def parse_files(files_result)
       files = []
-      files_result.each do |fileData|
-        files.push ElementFile.new(fileData)
+      files_result.each do |file_data|
+        files.push ElementFile.new(file_data)
       end
       files
     end

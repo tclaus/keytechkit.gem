@@ -1,7 +1,9 @@
 require 'keytechKit/serverinfo'
 
 module KeytechKit
-  class ServerinfoController
+  ##
+  # Serverinfo Handler
+  class ServerInfoHandler
     include HTTParty
 
     def initialize(keytechkit, base_url)

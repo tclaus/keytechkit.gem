@@ -9,12 +9,12 @@ module KeytechKit
       @auth = { username: username, password: password }
     end
 
-    def load(classKey, options = {})
+    def load(class_key, options = {})
       # Returns a classclasses
-      parameter = {query: options}
+      parameter = { query: options }
       parameter.merge!({ basic_auth: @auth })
 
-      response = self.class.get("/classes/#{classKey}", parameter)
+      response = self.class.get("/classes/#{class_key}", parameter)
 
       if response.success?
         # create a class

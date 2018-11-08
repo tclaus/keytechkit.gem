@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/tclaus/keytechkit.gem.svg?branch=master)](https://travis-ci.org/tclaus/keytechkit.gem)
+[![Build Status](https://travis-ci.com/tclaus/keytechkit.gem.svg?branch=master)](https://travis-ci.com/tclaus/keytechkit.gem)
 
 
 # KeytechKit.gem
@@ -23,6 +23,13 @@ Or install it yourself as:
 
     $ gem install keytechKit
 
+## Use
+This gem is currently still under development. New functions will come up every week.
+Refactors will be also made on any time even on minor version change.
+To use this gem have a look in the /spec folder. Every function should be tested.
+You can grab code here and add this to you own projects.
+
+Documentation with code samples will come in the next days. 
 
 ## Development
 

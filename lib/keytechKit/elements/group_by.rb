@@ -1,4 +1,7 @@
 module KeytechKit
+  ##
+  # A key - values list that conatins a Name and a list of values
+  # 
   class GroupBy
     attr_accessor :attributeName
     attr_accessor :attributeDisplayName

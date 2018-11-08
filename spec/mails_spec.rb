@@ -1,8 +1,8 @@
 module KeytechKit
   RSpec.describe KeytechKit do
     it 'loads the folders mails' do
-      keytechKit = Keytech_Kit.new(KeytechKit::DEMO_URL, KeytechKit::DEMO_USER, KeytechKit::DEMO_PASSWORD)
-      elements = keytechKit.elements
+      keytech_kit = KeytechKit.new(DEMO_URL, DEMO_USER, DEMO_PASSWORD)
+      elements = keytech_kit.element_handler
       expect(elements).not_to be nil
       mails = elements.mails('FOLDER_WF:2009625')
       expect(mails).not_to be nil

@@ -1,4 +1,6 @@
 module KeytechKit
+  ##
+  # A single note
   class Note
     attr_accessor :changedAt
     attr_accessor :changedBy
@@ -11,19 +13,19 @@ module KeytechKit
     attr_accessor :subject
     attr_accessor :text
 
-    def initialize(noteData)
-      self.changedAt = noteData['ChangedAt']
-      self.changedBy = noteData['ChangedBy']
-      self.changedByLong = noteData['ChangedByLong']
+    def initialize(data)
+      self.changedAt = data['ChangedAt']
+      self.changedBy = data['ChangedBy']
+      self.changedByLong = data['ChangedByLong']
 
-      self.createdAt = noteData['CreatedAt']
-      self.createdBy = noteData['CreatedBy']
-      self.createdByLong = noteData['CreatedByLong']
+      self.createdAt = data['CreatedAt']
+      self.createdBy = data['CreatedBy']
+      self.createdByLong = data['CreatedByLong']
 
-      self.id = noteData['ID']
-      self.noteType = noteData['NoteType']
-      self.subject = noteData['Subject']
-      self.text = noteData['Text']
+      self.id = data['ID']
+      self.noteType = data['NoteType']
+      self.subject = data['Subject']
+      self.text = data['Text']
     end
   end
 end

@@ -1,85 +1,95 @@
 require 'httparty'
 require 'keytechKit/version'
-require 'keytechKit/serverinfoController'
+require 'keytechKit/serverinfo_handler'
 require 'keytechKit/search'
 require 'keytechKit/user'
-require 'keytechKit/elements/elements'
-require 'keytechKit/elements/notes/notes'
+require 'keytechKit/elements/element_handler'
+require 'keytechKit/elements/notes/note_handler'
 require 'keytechKit/classes/classes'
 require 'keytechKit/classes/layouts'
 require 'keytechKit/classes/layout/layout'
-require 'keytechKit/elements/elementFiles/elementFiles'
-require 'keytechKit/elements/dd/dataDictionaries'
+require 'keytechKit/elements/element_files/element_file_handler'
+require 'keytechKit/elements/data_dictionary/data_dictionary_handler'
 
 module KeytechKit
-  class Keytech_Kit
-    # set base url
-    # setusername / Password
-    # get functions
-    attr_accessor :base_url
-    attr_accessor :username
-    attr_accessor :password
-    attr_accessor :serverinfo_controller
-    attr_accessor :_currentUser
-    attr_accessor :_elements
-    attr_accessor :_dataDictionaries
-    attr_accessor :_notes
-    attr_accessor :_classes
-    attr_accessor :_layouts
-    attr_accessor :_files
-    attr_accessor :_search
+  ##
+  # This class is the interface controller to the keytech Web API
+  # Use the helper functions to access various resources from the API
+  #
+  class KeytechKit
+    attr_reader :base_url
+    attr_reader :username
+    attr_reader :password
 
+    # Initializes this class
+    # user +baseurl+, +username+ and +password+ to start accessing all other
+    # keytech API resources
+    #
     def initialize(baseurl, username = '', password = '')
       @base_url = baseurl
-
       @username = username
       @password = password
     end
 
-    # Functions here
+    # Returns the Serverinfo @see +ServerInfo+ for details
+    # This should be always the first call whenever starting with keytech API.
+    # ServerInfo will give valuable information about server access, version
+    # number and functions
+    #
     def serverinfo
-      @serverinfo_controller = ServerinfoController.new(self, @base_url) if @serverinfo_controller.nil?
-      @serverinfo_controller.load
+      @serverinfo_handler = ServerInfoHandler.new(self, @base_url) if @serverinfo_handler.nil?
+      @serverinfo_handler.load
     end
 
-    def currentUser
-      if @_currentUser.nil?
+    # Returns the login in user.
+    # This is always the user with which you Initialized this classes
+    # Check this object to see if the user is active and have API access.
+    def current_user
+      if @_curent_user.nil?
         user = User.new(@base_url, @username, @password)
-        @_currentUser = user.load(@username)
+        @_curent_user = user.load(@username)
       end
-      @_currentUser
+      @_curent_user
     end
 
-    def elements
-      @_elements = Elements.new(self, @base_url, @username, @password) if @_elements.nil?
-      @_elements
+    # Returns the Elements resource. You will need to specify alwys the concrete
+    # Element you want to access. keytech API does not support to return bulk
+    # Lists of Elements
+    #
+    def element_handler
+      @_element_handler = ElementHandler.new(self, @base_url, @username, @password) if @_element_handler.nil?
+      @_element_handler
     end
 
-    def dataDictionaries
-      @_dataDictionaries = DataDictionaries.new(self, @base_url, @username, @password) if @_dataDictionaries.nil?
-      @_dataDictionaries
+    # Returns the Data Dictionaries. Data Dictionary (DD) will give lookup tables
+    # you will need to fill various element fields.
+    def data_dictionary_handler
+      @data_dictionary_handler = DataDictionaryHandler.new(self, @base_url, @username, @password) if @data_dictionary_handler.nil?
+      @data_dictionary_handler
     end
 
-    def notes
-      @_notes = Notes.new(@base_url, @username, @password) if @_notes.nil?
-      @_notes
-    end
-
+    # Returns the classes object.
+    # A class in terms of keytech describes a type of elements.
+    # A class describes the attributes, its types and it supported layouts to make
+    # certain elements visible for a user.
     def classes
       @classes = Classes.new(@base_url, @username, @password) if @classes.nil?
       @classes
     end
 
+    # TODO: Move Laoyuts under classes
+    # returns the layout class. Eveny class can have a layout which describes
+    # the attribues with its type, acccess, datadictionary and if it is
+    # visible to the user.
     def layouts
       @_layouts = Layouts.new(@base_url, @username, @password) if @_layouts.nil?
       @_layouts
     end
 
-    def files
-      @_files = ElementFiles.new(@base_url, @username, @password) if @_files.nil?
-      @_files
-    end
-
+    # Returns the Search Object
+    # With the search you can start a fulltextsearch, search by field, type or
+    # access a predefined search on the server side for elements
+    #
     def search
       @_search = Search.new(@base_url, @username, @password) if @_search.nil?
       @_search

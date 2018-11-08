@@ -1,7 +1,7 @@
-require 'keytechKit/elements/dd/ddDefinition'
+require 'keytechKit/elements/data_dictionary/data_dictionary_definition'
 
 module KeytechKit
-  class DataDictionaries
+  class DataDictionaryHandler
     include HTTParty
 
     attr_accessor :keytechkit
@@ -12,11 +12,11 @@ module KeytechKit
       @keytechkit = keytechkit
     end
 
-    def getDefinition(ddID)
+    def getDefinition(datadictionary_id)
       # /DataDictionaries/{ID}|{Name}
       parameter = { basic_auth: @auth }
 
-      response = self.class.get("/datadictionaries/#{ddID}", parameter)
+      response = self.class.get("/datadictionaries/#{datadictionary_id}", parameter)
       if response.success?
         parse_dataDictionaryDefinition(response['AttributeDefinition'])
       else
@@ -25,11 +25,11 @@ module KeytechKit
     end
 
     # Returns a hashed value with data
-    def getData(ddID)
+    def getData(datadictionary_id)
       # /DataDictionaries/{ID}|{Name}/data
       parameter = { basic_auth: @auth }
 
-      response = self.class.get("/datadictionaries/#{ddID}/data", parameter)
+      response = self.class.get("/datadictionaries/#{datadictionary_id}/data", parameter)
       if response.success?
         response['Data']
       else
@@ -42,7 +42,7 @@ module KeytechKit
     def parse_dataDictionaryDefinition(definitionArray)
       definition = []
       definitionArray.each do |definitionData|
-        definition.push DDDefinition.new(definitionData)
+        definition.push DataDictionaryDefinition.new(definitionData)
       end
       definition
     end

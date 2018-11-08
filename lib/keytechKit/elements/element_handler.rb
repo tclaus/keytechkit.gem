@@ -1,9 +1,11 @@
 require 'keytechKit/elements/element'
-require 'keytechKit/elements/searchResponseHeader'
-require 'keytechKit/elements/bom/billOfMaterial'
+require 'keytechKit/elements/search_response_header'
+require 'keytechKit/elements/bom/bom_element_list'
 
 module KeytechKit
-  class Elements
+  ##
+  # All operations for a element is here
+  class ElementHandler
     include HTTParty
 
     attr_accessor :keytechkit
@@ -19,11 +21,11 @@ module KeytechKit
     # e.g.: MISC_FILE:1234
     # +options+ is one of attributes=ALL|NONE|EDITOR
     # It returns nil if no element with this elementKey was found
-    def load(elementKey, options = {})
+    def load(element_key, options = {})
       parameter = { query: options }
       parameter[:basic_auth] = @auth
 
-      response = self.class.get("/elements/#{elementKey}", parameter)
+      response = self.class.get("/elements/#{element_key}", parameter)
 
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
@@ -34,7 +36,7 @@ module KeytechKit
 
     # It returns a element prototype with the given elementKey
     # you can check valid elementkeys with the classdefinition
-    def newElement(key)
+    def new_element(key)
       Element.new('Key' => key)
     end
 
@@ -83,10 +85,10 @@ module KeytechKit
     # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
-    def structure(elementKey, options = {})
+    def structure(element_key, options = {})
       parameter = { query: options }
       parameter[:basic_auth] = @auth
-      response = self.class.get("/elements/#{elementKey}/structure", parameter)
+      response = self.class.get("/elements/#{element_key}/structure", parameter)
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
         return searchResponseHeader.elementList
@@ -97,11 +99,11 @@ module KeytechKit
     # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
-    def whereused(elementKey, options = {})
+    def whereused(element_key, options = {})
       parameter = { query: options }
       parameter[:basic_auth] = @auth
 
-      response = self.class.get("/elements/#{elementKey}/whereused", parameter)
+      response = self.class.get("/elements/#{element_key}/whereused", parameter)
       if response.success?
         searchResponseHeader = SearchResponseHeader.new(response)
         return searchResponseHeader.elementList
@@ -112,14 +114,14 @@ module KeytechKit
     # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
-    def billOfMaterial(elementKey, options = {})
+    def billOfMaterial(element_key, options = {})
       parameter = { query: options }
       parameter[:basic_auth] = @auth
 
-      response = self.class.get("/elements/#{elementKey}/bom", parameter)
+      response = self.class.get("/elements/#{element_key}/bom", parameter)
       if response.success?
-        billOfMaterial = BillOfMaterial.new(response)
-        return billOfMaterial.bomElementList
+        bom_list = BomElementList.new(response)
+        return bom_list.bomElementList
       end
     end
 
@@ -127,11 +129,11 @@ module KeytechKit
     # +options+ can have these values: size, page, attribute = ALL|NONE|GLOBALLISTER|SECONDARY|EXPLORER
     # Returns a list of elements
     # It returns nil if no element with this elementKey was found
-    def mails(elementKey, options = {})
+    def mails(element_key, options = {})
       parameter = { query: options }
       parameter[:basic_auth] = @auth
 
-      response = self.class.get("/elements/#{elementKey}/mails", parameter)
+      response = self.class.get("/elements/#{element_key}/mails", parameter)
       return response['ElementList'] if response.success?
     end
 
@@ -143,24 +145,39 @@ module KeytechKit
 
       response = self.class.get("/elements/#{element_key}/notes", parameter)
       if response.success?
-        searchResponseHeader = SearchResponseHeader.new(response)
-        searchResponseHeader.elementList
+        search_response_header = SearchResponseHeader.new(response)
+        search_response_header.elementList
       end
+    end
+
+    # Returns Notes resource.
+    # Every Element can have zero, one or more notes.
+    # You can notes only access in context of its element which ownes the notes
+    def note_handler
+      @_note_handler = NoteHandler.new(keytechkit.base_url, keytechkit.username, keytechkit.password) if @_note_handler.nil?
+      @_note_handler
+    end
+
+    # Returns the file object.
+    # Every element can have a Masterfile and one or more preview files
+    def file_handler
+      @_element_file_handler = ElementFileHandler.new(keytechkit.base_url, keytechkit.username, keytechkit.password) if @_element_file_handler.nil?
+      @_element_file_handler
     end
 
     # Loads the preview image. This is a size limited image version of the files
     # content. Text documents often show the first Page.
     # Make no assumtions about the image size
-    def preview(elementKey)
+    def preview(element_key)
       parameter = { basic_auth: @auth }
-      self.class.get("/elements/#{elementKey}/preview", parameter)
+      self.class.get("/elements/#{element_key}/preview", parameter)
     end
 
     # Loads a small thumbnail. Thumbnails are like file type icons.
     # They normaly show the type of a document, not its content
-    def thumbnail(elementKey)
+    def thumbnail(element_key)
       parameter = { basic_auth: @auth }
-      self.class.get("/elements/#{elementKey}/thumbnail", parameter)
+      self.class.get("/elements/#{element_key}/thumbnail", parameter)
     end
   end
 end

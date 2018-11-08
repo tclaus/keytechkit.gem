@@ -1,4 +1,9 @@
 module KeytechKit
+  ##
+  # This links two keytech objects regarding of a context
+  # Can represent a favorite to element link
+  # Can represent a name to a stored query
+  # Can link to a parent link object
   class Targetlink
     attr_accessor :entryName
     attr_accessor :linkID
