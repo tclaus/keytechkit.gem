@@ -3,7 +3,7 @@ require 'keytechKit/elements/data_dictionary/data_dictionary_definition'
 module KeytechKit
   class DataDictionaryHandler
     include HTTParty
-
+    default_timeout 10
     attr_accessor :keytechkit
 
     def initialize(keytechkit, base_url, username, password)

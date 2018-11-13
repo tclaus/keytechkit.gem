@@ -4,6 +4,7 @@ require 'keytechKit/classes/layout/layout'
 module KeytechKit
   class Layouts
     include HTTParty
+    default_timeout 10
 
     def initialize(base_url, username, password)
       self.class.base_uri(base_url)
@@ -12,15 +13,15 @@ module KeytechKit
 
     def header_layout(classkey)
         # Ab keytedch 14!
-        load_layout(classkey, {"layoutType": "HeaderLayout"})
+        load_layout(classkey, {layoutType: "HeaderLayout"})
     end
 
     def main_layout(classkey)
-        load_layout(classkey, {"layoutType": "DefaultLayout"})
+        load_layout(classkey, {layoutType: "DefaultLayout"})
     end
 
     def explorer_layout(classkey)
-        load_layout(classkey, {"layoutType": "ExplorerLayout"})
+        load_layout(classkey, {layoutType: "ExplorerLayout"})
     end
 
     def lister_layout(classkey)

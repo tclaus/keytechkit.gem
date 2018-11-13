@@ -5,6 +5,7 @@ module KeytechKit
   # Notes
   class NoteHandler
     include HTTParty
+    default_timeout 10
 
     def initialize(base_url, username, password)
       self.class.base_uri(base_url)

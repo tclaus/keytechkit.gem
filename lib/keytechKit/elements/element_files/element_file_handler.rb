@@ -6,6 +6,7 @@ module KeytechKit
   # Element File handler
   class ElementFileHandler
     include HTTParty
+    default_timeout 10
 
     def initialize(base_url, username, password)
       self.class.base_uri(base_url)

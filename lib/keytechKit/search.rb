@@ -9,6 +9,7 @@ module KeytechKit
   # Can group the results
   class Search
     include HTTParty
+    default_timeout 10
 
     attr_accessor :response
 

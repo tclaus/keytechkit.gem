@@ -29,7 +29,8 @@ Refactors will be also made on any time even on minor version change.
 To use this gem have a look in the /spec folder. Every function should be tested.
 You can grab code here and add this to you own projects.
 
-Documentation with code samples will come in the next days. 
+Full documentation with code samples will come in the next days.
+Latest gem documentation for keytechAPI gem is on [rubydoc](https://www.rubydoc.info/gems/keytechkit)
 
 ## Development
 

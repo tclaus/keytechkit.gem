@@ -5,6 +5,7 @@ module KeytechKit
   # Serverinfo Handler
   class ServerInfoHandler
     include HTTParty
+    default_timeout 10
 
     def initialize(keytechkit, base_url)
       self.class.base_uri(base_url)

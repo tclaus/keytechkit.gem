@@ -7,6 +7,7 @@ module KeytechKit
   # All operations for a element is here
   class ElementHandler
     include HTTParty
+    default_timeout 10
 
     attr_accessor :keytechkit
 

@@ -20,6 +20,7 @@ module KeytechKit
     attr_reader :base_url
     attr_reader :username
     attr_reader :password
+    
 
     # Initializes this class
     # user +baseurl+, +username+ and +password+ to start accessing all other
