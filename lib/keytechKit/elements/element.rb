@@ -26,26 +26,32 @@ module KeytechKit
     attr_accessor :description
 
     def initialize(data)
-      self.key = data['Key']
-      self.name = data['Name']
+      @key = data['Key']
+      @name = data['Name']
       set_key_value_list(data['KeyValueList'])
 
-      self.displayname = data['DisplayName']
-      self.classDisplayName = data['ClassDisplayName']
-      self.version = data['Version']
-      self.status = data['Status']
-      self.description = data['Description']
 
-      self.changedBy = data['ChangedBy']
-      self.changedByLong = data['ChangedByLong']
-      self.changedAt = data['ChangedAt']
+      @classDisplayName = data['ClassDisplayName']
+      @version = data['Version']
+      @status = data['Status']
+      @description = data['Description']
 
-      self.createdBy = data['CreatedBy']
-      self.createdByLong = data['CreatedByLong']
-      self.createdAt = data['CreatedAt']
+      @changedBy = data['ChangedBy']
+      @changedByLong = data['ChangedByLong']
+      @changedAt = data['ChangedAt']
 
-      self.thumbnailHint = data['ThumbnailHint']
-      self.hasVersions = data['HasVersions']
+      @createdBy = data['CreatedBy']
+      @createdByLong = data['CreatedByLong']
+      @createdAt = data['CreatedAt']
+
+      @thumbnailHint = data['ThumbnailHint']
+      @hasVersions = data['HasVersions']
+
+      @displayname = if @key == 'TASK_WF' || @key == 'MAIL_WF'
+                       data['DisplayName']
+                     else
+                       data['Subject']
+                     end
     end
 
     def to_hash
@@ -70,7 +76,7 @@ module KeytechKit
     private
 
     def set_key_value_list(kv_data)
-      self.keyValueList = ({})
+      @keyValueList = ({})
       if kv_data
         kv_data.each do |kvPair|
           keyValueList[kvPair['Key'].to_s] = kvPair['Value']
