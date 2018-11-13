@@ -47,10 +47,12 @@ module KeytechKit
       @thumbnailHint = data['ThumbnailHint']
       @hasVersions = data['HasVersions']
 
-      @displayname = if @key == 'TASK_WF' || @key == 'MAIL_WF'
-                       data['DisplayName']
-                     else
+      class_key = Tools.class_key(@key)
+      project_classes = %w[TASK_WF MAIL_WF]
+      @displayname = if project_classes.include?(class_key)
                        data['Subject']
+                     else
+                       data['DisplayName']
                      end
     end
 

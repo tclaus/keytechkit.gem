@@ -15,7 +15,7 @@ module KeytechKit
 
     # Returns true or false if a masterfile exist
     def masterfile?(element_key)
-      if Tools.classType(element_key) == 'DO' # Only DO Types can have a file
+      if Tools.class_type(element_key) == 'DO' # Only DO Types can have a file
         file_list = load(element_key)
         unless file_list.nil?
           file_list.each do |file|
@@ -28,7 +28,7 @@ module KeytechKit
 
     # Returns information about masterfile
     def masterfile_info(element_key)
-      if Tools.classType(element_key) == 'DO' # Only DO Types can have a file
+      if Tools.class_type(element_key) == 'DO' # Only DO Types can have a file
         file_list = load(element_key)
         unless file_list.nil?
           file_list.each do |file|
