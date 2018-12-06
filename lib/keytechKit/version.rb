@@ -1,5 +1,5 @@
 module KeytechKit
-  VERSION = '0.3.17'
+  VERSION = '0.3.18'
 
   # Public available Demo URL for testing and dsevelopment
   DEMO_URL = 'https://demo.keytech.de'
