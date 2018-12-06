@@ -9,23 +9,28 @@ module KeytechKit
     attr_accessor :createdBy
     attr_accessor :createdByLong
     attr_accessor :id
-    attr_accessor :noteType
+    attr_accessor :note_type
     attr_accessor :subject
     attr_accessor :text
+    attr_accessor :element_key
 
     def initialize(data)
-      self.changedAt = data['ChangedAt']
-      self.changedBy = data['ChangedBy']
-      self.changedByLong = data['ChangedByLong']
+      @changedAt = data['ChangedAt']
+      @changedBy = data['ChangedBy']
+      @changedByLong = data['ChangedByLong']
 
-      self.createdAt = data['CreatedAt']
-      self.createdBy = data['CreatedBy']
-      self.createdByLong = data['CreatedByLong']
+      @createdAt = data['CreatedAt']
+      @createdBy = data['CreatedBy']
+      @createdByLong = data['CreatedByLong']
 
-      self.id = data['ID']
-      self.noteType = data['NoteType']
-      self.subject = data['Subject']
-      self.text = data['Text']
+      @id = data['ID'] || 0
+      @note_type = data['NoteType']
+      @subject = data['Subject']
+      @text = data['Text']
+    end
+
+    def to_hash
+      { NoteType: @note_type, Subject: @subject, Text: @text }
     end
   end
 end
