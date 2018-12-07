@@ -47,20 +47,14 @@ module KeytechKit
       note_hash = note.to_hash
       parameter = { basic_auth: @auth,
                     body: note_hash.to_json,
-                    headers: { 'Content-Type' => 'application/json; charset=utf-8 ' } }
+                    headers: { 'Content-Type': 'application/json; charset=utf-8 ' } }
 
       response = if note.id.zero?
                    self.class.post("/elements/#{element_key}/notes", parameter)
                  else
                    self.class.put("/elements/#{element_key}/notes", parameter)
                  end
-      if response.success?
-        note.id = response.headers['location']
-        { id: response.headers['location'] }
-      else
-        # TODO: return an error object, dont raise exception
-        raise response.response
-      end
+      ResponseHelper.created_with_location(response)
     end
 
     def remove(note)
@@ -68,11 +62,7 @@ module KeytechKit
       element_key = note.element_key
       note_id = note.id
       response = self.class.delete("/elements/#{element_key}/notes/#{note_id}", parameter)
-      if response.success?
-        { success: true }
-      else
-        { success: false, error: response.headers['x-errordescription'].to_s }
-      end
+      ResponseHelper.success(response)
     end
 
     private

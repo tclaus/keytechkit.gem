@@ -32,14 +32,15 @@ module KeytechKit
         note = note_handler.create(note_type, ELEMENT_WITH_NOTES)
         note.subject = 'This is the respec test note'
         note.text = 'This is the notes body. Curently only plaintext'
-        note_id = note_handler.save(note) # Save wil create a new note or update an
-                                #  existing one
-        puts "New Note ID: #{note_id}"
+        result = note_handler.save(note) # Save wil create a new note or update an
+        #  existing one
+        expect(result[:success]).to be true
+        note_id = result[:id]
+        note.id = note_id
         expect(note_id).not_to be eq(0)
         result = note_handler.remove(note)
         expect(result[:success]).to be(true)
       end
-
     end
   end
 end

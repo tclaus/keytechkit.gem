@@ -111,14 +111,14 @@ module KeytechKit
         expect(result[:success]).to be true
 
         # Remove files here
-        result = file_handler.remove_quickpreview(element.key)
+        result = file_handler.delete_quickpreview(element.key)
         puts "resut: #{result.inspect}"
         expect(result[:success]).to be true
 
-        result = file_handler.remove_preview(element.key)
+        result = file_handler.delete_preview(element.key)
         expect(result[:success]).to be true
 
-        result = file_handler.remove_masterfile(element.key)
+        result = file_handler.delete_masterfile(element.key)
         expect(result[:success]).to be true
 
         # Clean test element

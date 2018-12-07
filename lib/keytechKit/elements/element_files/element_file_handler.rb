@@ -116,46 +116,42 @@ module KeytechKit
       upload_file element_key, parameter
     end
 
-    def remove_masterfile(element_key)
+    def delete_masterfile(element_key)
       file_list = load(element_key)
       if !file_list.nil?
         file_list.each do |file|
-          return remove_file(element_key, file.fileId) if file.fileStorageType.casecmp('master').zero?
+          return delete_file(element_key, file.fileId) if file.fileStorageType.casecmp('master').zero?
         end
       end
-      { success: true, message: "No file found" }
+      { success: true, message: 'No file found' }
     end
 
-    def remove_preview(element_key)
+    def delete_preview(element_key)
       file_list = load(element_key)
       if !file_list.nil?
         file_list.each do |file|
-          return remove_file(element_key, file.fileId) if file.fileStorageType.casecmp('preview').zero?
+          return delete_file(element_key, file.fileId) if file.fileStorageType.casecmp('preview').zero?
         end
       end
-      { success: true, message: "No file found" }
+      { success: true, message: 'No file found' }
     end
 
-    def remove_quickpreview(element_key)
+    def delete_quickpreview(element_key)
       file_list = load(element_key)
       if !file_list.nil?
         file_list.each do |file|
-          return remove_file(element_key, file.fileId) if file.fileStorageType.casecmp('quickpreview').zero?
+          return delete_file(element_key, file.fileId) if file.fileStorageType.casecmp('quickpreview').zero?
         end
       end
-      { success: true, message: "No file found" }
+      { success: true, message: 'No file found' }
     end
 
     private
 
-    def remove_file(element_key, file_id)
+    def delete_file(element_key, file_id)
       parameter = { basic_auth: @auth }
       response = self.class.delete("/elements/#{element_key}/files/#{file_id}", parameter)
-      if response.success?
-        { success: true }
-      else
-        { success: false, error: response.headers['x-errordescription'].to_s }
-      end
+      ResponseHelper.success(response)
     end
 
     def upload_file(element_key, parameter)
