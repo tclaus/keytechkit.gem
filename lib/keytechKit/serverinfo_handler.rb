@@ -15,6 +15,8 @@ module KeytechKit
     def load
       response = self.class.get('/serverinfo')
       if response.success?
+        json = JSON.parse(response.body)
+      puts json['ServerInfoResult']
         Serverinfo.new(response['ServerInfoResult'])
       else
         raise response.response

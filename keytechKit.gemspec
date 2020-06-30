@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = KeytechKit::VERSION
   spec.author        = "Thorsten Claus"
   spec.email         = ["thorstenclaus@web.de"]
-  spec.summary       = "keytechkit is a ruby gem to connect to the keytech Web API"
+  spec.summary       = "keytechkit is a ruby gem to connect to the keytech API"
   spec.homepage      = "https://claus-software.de"
   spec.license       = "MIT"
   spec.metadata      = { "source_code_uri" => "https://github.com/tclaus/keytechkit.gem" }
@@ -25,6 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rails", "~> 5.2"
-       
+
   spec.add_dependency "httparty", "~> 0.16"
 end
